@@ -89,24 +89,67 @@ export const projects = [
     slug: 'joystick-junction',
     number: '02',
     title: 'Joystick Junction',
-    subtitle: 'Gaming Arcade & Community',
+    subtitle: "Raipur's Premium Gaming Lounge",
     category: 'Gaming / Web Design / Development',
-    disciplines: ['Web Design', 'Development', 'Branding'],
+    disciplines: ['Web Design', 'Development', '3D / WebGL', 'Booking Flow'],
     year: '2026',
     status: 'live',
     summary:
-      'A gaming destination brand built around arcade energy — high contrast, heavy grid, and an interface that feels like a machine you want to walk up to.',
+      'A gaming lounge that needed more than a brochure — a neon-lit site where picking a rig, a date and a time slot happens in one uninterrupted flow, priced and paid for before you leave the page.',
+    cover: '/work/joystick-junction/cover.jpg',
     visual: { key: 'arcade', accent: '#E50914', accent2: '#FF3B45' },
     caseStudy: {
-      // Full write-up not published yet — the page renders a clean
-      // placeholder instead of fabricated outcomes. Flip to `true` once
-      // the sections below are filled in.
-      ready: false,
+      ready: true,
       intro:
-        'Joystick Junction is a gaming destination brand. The design work leans into arcade language — hard grids, high contrast, deliberate pixel structure — without tipping into nostalgia pastiche.',
-      deliverables: ['Web Design', 'Front-End Development', 'Brand Direction'],
-      stack: ['React', 'Vite', 'Tailwind CSS'],
-      link: null,
+        'Joystick Junction is a premium gaming lounge in Raipur running high-end PCs, PS4 and PS5 pods, and a full motion racing simulator. Most lounges in the category stop at a phone number and an Instagram page. This one had to take the booking itself — choose a platform, see the price move, reserve the seat and pay, without a single call.',
+      sections: [
+        {
+          label: 'The Approach',
+          body: 'The lounge sells atmosphere as much as hardware, so the site opens with it: a dark hero carrying the wordmark in neon magenta and cyan, orbital rings, and a drifting field of PlayStation glyphs rendered in WebGL. From there the tone tightens deliberately — the further you scroll, the more the page behaves like a utility, because the goal is a completed booking rather than a long visit.',
+        },
+        {
+          label: 'The Booking Flow',
+          body: 'The centrepiece is a single-screen reservation form. Platform, player count, date, duration and time slot sit on the left; a summary panel on the right updates live and computes the total as choices change, so the price is never a surprise at the end. Razorpay handles payment with UPI, card, net banking and wallet options inline — the booking is finished on the page it started on.',
+        },
+        {
+          label: 'The Build',
+          body: 'Hand-written HTML, CSS and JavaScript with Three.js driving the hero scene — no framework, which keeps the payload small and the page fast on the mid-range phones most of the audience actually books from. Orbitron and Rajdhani carry the arcade voice while Sora keeps the body copy readable, and the whole thing deploys as a static site on GitHub Pages.',
+        },
+        {
+          label: 'The Detail',
+          body: 'Four platforms are documented like a menu rather than a spec sheet — RTX-powered rigs at 240Hz, console pods with 4K displays, and a force-feedback racing rig priced by the quarter-hour. Pricing is hourly and stated plainly, with no memberships or tiers, because the decision being made is simply how long to play.',
+        },
+      ],
+      gallery: [
+        {
+          src: '/work/joystick-junction/shot-02.jpg',
+          alt: 'Joystick Junction — the services and hourly pricing sections, with the four gaming platforms laid out.',
+          caption:
+            'Four platforms, priced by the hour with no memberships. The decision is only ever how long to play.',
+        },
+        {
+          src: '/work/joystick-junction/shot-03.jpg',
+          alt: 'Joystick Junction — the slot booking form with a live booking summary and Razorpay payment options.',
+          caption:
+            'The summary panel recalculates as the platform, duration and player count change, so the total is settled before payment begins.',
+        },
+      ],
+      deliverables: [
+        'Art Direction',
+        'UI Design',
+        'WebGL Hero Scene',
+        'Booking Flow Design',
+        'Payment Integration',
+        'Front-End Development',
+      ],
+      stack: ['HTML', 'CSS', 'JavaScript', 'Three.js', 'Razorpay', 'GitHub Pages'],
+      facts: [
+        { label: 'Scope', value: 'Full site design + build' },
+        { label: 'Sections', value: '10' },
+        { label: 'Platforms', value: '4' },
+        { label: 'Booking', value: 'Live pricing + pay' },
+      ],
+      link: 'https://suyashnamdeo07.github.io/JoystickJunction/',
     },
   },
 

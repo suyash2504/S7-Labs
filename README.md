@@ -220,7 +220,3 @@ Two known items, both deliberate:
   generates sitemap.xml from the live projects automatically.
 - Contact email is `suyash.namdeo07@gmail.com` (`site.email`, one line). Swap
   for a branded address once the domain and mailbox exist.
-- **Joystick Junction has no real screenshots.** Apex Gym now shows an actual
-  capture of the live site while Joystick Junction still shows generated
-  artwork, so the two sit at different fidelities in the reel. Point the
-  capture script at the live JJ site to close the gap.
