@@ -120,8 +120,18 @@ export function Footer() {
         </div>
 
         {/* Oversized wordmark */}
-        <div className="mt-20 overflow-hidden sm:mt-28" aria-hidden="true">
-          <p className="w-full text-center font-display text-[clamp(3.5rem,17.5vw,15rem)] leading-[0.8] font-bold tracking-[-0.05em] whitespace-nowrap text-white/[0.055] select-none">
+        {/* Pure decoration — a watermark, not content. The wordmark already
+            appears legibly at the top of this footer, so this is exempt under
+            WCAG 1.4.3 (incidental text).
+            Note: axe/Lighthouse will still report this as a contrast failure.
+            That rule ignores aria-hidden by design, because the text remains
+            visually present. Passing 3:1 here needs ~35% white, which turns a
+            watermark into a headline — so this one is knowingly left as-is. */}
+        <div className="mt-20 overflow-hidden sm:mt-28">
+          <p
+            aria-hidden="true"
+            className="w-full text-center font-display text-[clamp(3.5rem,17.5vw,15rem)] leading-[0.8] font-bold tracking-[-0.05em] whitespace-nowrap text-white/[0.055] select-none"
+          >
             S7 LABS
           </p>
         </div>

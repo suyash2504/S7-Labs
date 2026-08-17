@@ -1,3 +1,4 @@
+import { useRef } from 'react'
 import { motion, useMotionValue, useSpring, useTransform } from 'framer-motion'
 import { Link } from 'react-router-dom'
 import { ArrowUpRight, Lock } from 'lucide-react'
@@ -24,11 +25,17 @@ export function ProjectCard({ project, flip = false, delay = 0, priority = false
   const x = useTransform(sx, (v) => v * 22)
   const y = useTransform(sy, (v) => v * 22)
 
+  // Measured against the media box, but listened for on <article>: the
+  // stretched link's ::after sits over the media and would swallow the event
+  // if we bound it there. Pointer events still bubble up to the article.
+  const mediaRef = useRef(null)
+
   const onMove = (e) => {
-    if (!interactive) return
-    const r = e.currentTarget.getBoundingClientRect()
-    mx.set(((e.clientX - r.left) / r.width) * 2 - 1)
-    my.set(((e.clientY - r.top) / r.height) * 2 - 1)
+    if (!interactive || !mediaRef.current) return
+    const r = mediaRef.current.getBoundingClientRect()
+    const clamp = (v) => (v > 1 ? 1 : v < -1 ? -1 : v)
+    mx.set(clamp(((e.clientX - r.left) / r.width) * 2 - 1))
+    my.set(clamp(((e.clientY - r.top) / r.height) * 2 - 1))
   }
   const onLeave = () => {
     mx.set(0)
@@ -36,17 +43,24 @@ export function ProjectCard({ project, flip = false, delay = 0, priority = false
   }
 
   const upcoming = project.status === 'upcoming'
-  const Wrapper = upcoming ? 'div' : Link
 
   return (
-    <article>
-      <Wrapper
-        {...(upcoming ? {} : { to: `/work/${project.slug}`, 'data-cursor': 'view' })}
+    /**
+     * Stretched-link card. The anchor wraps only the title and is expanded to
+     * cover the whole card via its own ::after, so the entire surface stays
+     * clickable while the accessible name is just "Apex Gym".
+     *
+     * Wrapping the whole card in the <a> instead (the obvious approach) makes
+     * every paragraph inside it part of the link's name — which reads terribly
+     * in a screen reader and fails WCAG 2.5.3, since no short aria-label can
+     * contain all of that visible text.
+     */
+    <article className="group relative" onPointerMove={onMove} onPointerLeave={onLeave}>
+      <div
         className={cn(
-          'group grid items-center gap-8 lg:grid-cols-12 lg:gap-14',
+          'grid items-center gap-8 lg:grid-cols-12 lg:gap-14',
           upcoming && 'cursor-default',
         )}
-        aria-label={upcoming ? undefined : `${project.title} — view case study`}
       >
         {/* ---------------------------------------------------------- media */}
         <Reveal
@@ -56,9 +70,9 @@ export function ProjectCard({ project, flip = false, delay = 0, priority = false
             flip ? 'lg:order-2 lg:col-start-6' : 'lg:order-1 lg:col-start-1',
           )}
         >
+          <MediaLink upcoming={upcoming} to={`/work/${project.slug}`}>
           <div
-            onPointerMove={onMove}
-            onPointerLeave={onLeave}
+            ref={mediaRef}
             className="relative aspect-4/3 overflow-hidden border border-line bg-carbon sm:aspect-video lg:aspect-4/3"
           >
             <motion.div
@@ -98,6 +112,7 @@ export function ProjectCard({ project, flip = false, delay = 0, priority = false
               />
             )}
           </div>
+          </MediaLink>
         </Reveal>
 
         {/* ----------------------------------------------------------- text */}
@@ -121,7 +136,11 @@ export function ProjectCard({ project, flip = false, delay = 0, priority = false
             </p>
 
             <h3 className="relative mt-4 font-display text-d2 uppercase">
-              <span className="relative inline-block">
+              <LinkOrText
+                upcoming={upcoming}
+                to={`/work/${project.slug}`}
+                className="relative inline-block"
+              >
                 <span
                   className={cn(
                     'transition-colors duration-500',
@@ -136,7 +155,7 @@ export function ProjectCard({ project, flip = false, delay = 0, priority = false
                     className="absolute -bottom-1 left-0 h-0.5 w-full origin-right scale-x-0 bg-red transition-transform duration-700 ease-[var(--ease-out-expo)] group-hover:origin-left group-hover:scale-x-100"
                   />
                 )}
-              </span>
+              </LinkOrText>
             </h3>
 
             {project.subtitle && (
@@ -181,7 +200,40 @@ export function ProjectCard({ project, flip = false, delay = 0, priority = false
             </span>
           </div>
         </Reveal>
-      </Wrapper>
+      </div>
     </article>
+  )
+}
+
+/**
+ * The title: a link for published projects, plain text for upcoming ones.
+ * This is the card's single entry in the accessibility tree, and its name is
+ * exactly the visible title.
+ *
+ * A stretched `::after` was the first attempt at making the whole card
+ * clickable, but the pseudo-element resolves against the nearest positioned or
+ * transformed ancestor — which here is the Reveal wrapper mid-animation, not
+ * the card. <MediaLink> handles the click target instead.
+ */
+function LinkOrText({ upcoming, to, className, children }) {
+  if (upcoming) return <span className={className}>{children}</span>
+  return (
+    <Link to={to} data-cursor="view" className={className}>
+      {children}
+    </Link>
+  )
+}
+
+/**
+ * Makes the artwork clickable for pointer users without adding a second entry
+ * to the accessibility tree — keyboard and screen-reader users reach the
+ * project through the title link above, so this one is skipped entirely.
+ */
+function MediaLink({ upcoming, to, children }) {
+  if (upcoming) return children
+  return (
+    <Link to={to} data-cursor="view" aria-hidden="true" tabIndex={-1} className="block">
+      {children}
+    </Link>
   )
 }

@@ -47,10 +47,6 @@ export function Intro() {
               <ScrollWords
                 text="We build digital experiences designed to make businesses look better, work smarter and grow faster."
                 accent={['better,', 'smarter', 'faster.']}
-                wordClassName="text-ash"
-                // This paragraph sits at 20–32px regular, which is below the
-                // "large text" threshold — #E50914 would miss AA here.
-                accentClassName="text-red-bright"
                 offset={['start 0.95', 'end 0.7']}
               />
             </p>

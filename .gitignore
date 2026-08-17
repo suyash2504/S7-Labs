@@ -8,3 +8,6 @@ dist-ssr
 .DS_Store
 .vite
 *.log
+
+# Lighthouse report output
+lh.json

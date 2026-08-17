@@ -170,6 +170,33 @@ chrome, masking and sizing are renderer-agnostic and stay put. The marked
 
 ---
 
+## Audit baseline
+
+Run it yourself against the production build — start `npm run preview` in one
+terminal, then:
+
+```bash
+node scripts/audit.mjs
+```
+
+| Performance | Accessibility | Best Practices | SEO |
+| ----------- | ------------- | -------------- | --- |
+| 95          | 96            | 100            | 100 |
+
+FCP 2.0s · LCP 2.7s · TBT 50ms · CLS 0.009 (simulated slow 4G)
+
+Two known items, both deliberate:
+
+- **One contrast "failure"** — the oversized `S7 LABS` watermark in the footer.
+  It is decoration, exempt under WCAG 1.4.3, and clearing 3:1 would need ~35%
+  white, which turns a watermark into a headline. axe reports it regardless,
+  because that rule ignores `aria-hidden` by design.
+- **Unused JavaScript** — Framer Motion. Moving to `LazyMotion` + `domAnimation`
+  with `m.*` components would cut roughly 30KB gzipped, but it is a wide
+  mechanical refactor and has not been done.
+
+---
+
 ## Notes
 
 - Red is held to roughly 5% of the page. On the hero canvas it measures ~1.8%

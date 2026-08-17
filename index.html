@@ -42,13 +42,26 @@
     />
     <meta name="twitter:image" content="https://s7labs.in/og-image.png" />
 
-    <!-- Fonts: Space Grotesk (display) + Inter (UI/body) -->
+    <!-- Fonts: Space Grotesk (display) + Inter (UI/body).
+         Loaded non-blocking: fetched as a preload, then promoted to a real
+         stylesheet on load. A plain <link rel="stylesheet"> here blocks first
+         paint on a third-party round trip. The hero's entrance waits on
+         document.fonts.ready, so the headline still never reveals in the
+         fallback face. -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
+      rel="preload"
+      as="style"
       href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&display=swap"
-      rel="stylesheet"
+      onload="this.onload=null;this.rel='stylesheet'"
     />
+    <noscript>
+      <link
+        rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&display=swap"
+      />
+    </noscript>
 
     <script type="application/ld+json">
       {
