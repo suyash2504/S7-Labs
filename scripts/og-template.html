@@ -1,0 +1,115 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Inter:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      /* Source of truth for public/og-image.png — rendered by scripts/build-og.mjs.
+         Kept in the same tokens as src/index.css so the card can never drift
+         away from the site's palette. */
+      :root {
+        --void: #080808;
+        --line: #242424;
+        --chalk: #ffffff;
+        --ash: #a3a3a3;
+        --smoke: #7c7c7c;
+        --red: #e50914;
+      }
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+
+      body {
+        width: 1200px;
+        height: 630px;
+        overflow: hidden;
+        position: relative;
+        background: var(--void);
+        font-family: 'Inter', system-ui, sans-serif;
+        -webkit-font-smoothing: antialiased;
+      }
+
+      .grid {
+        position: absolute;
+        inset: 0;
+        background-image:
+          linear-gradient(to right, var(--line) 1px, transparent 1px),
+          linear-gradient(to bottom, var(--line) 1px, transparent 1px);
+        background-size: 60px 60px;
+        opacity: 0.55;
+      }
+
+      .glow {
+        position: absolute;
+        inset: 0;
+        background: radial-gradient(
+          46% 52% at 78% 32%,
+          rgba(229, 9, 20, 0.3) 0%,
+          rgba(139, 0, 0, 0.1) 40%,
+          rgba(8, 8, 8, 0) 72%
+        );
+      }
+
+      .frame { position: relative; height: 100%; padding: 74px 88px; display: flex; flex-direction: column; }
+
+      .brand { display: flex; align-items: center; gap: 14px; }
+      .brand svg { width: 34px; height: 34px; display: block; }
+      .brand .name {
+        font-family: 'Space Grotesk', sans-serif;
+        font-weight: 700; font-size: 26px; letter-spacing: 0.18em; color: var(--chalk);
+      }
+      .brand .div { width: 1px; height: 22px; background: var(--line); }
+      .brand .kicker {
+        font-size: 13px; font-weight: 500; letter-spacing: 0.24em;
+        text-transform: uppercase; color: var(--smoke);
+      }
+
+      h1 {
+        margin-top: auto;
+        font-family: 'Space Grotesk', sans-serif;
+        font-weight: 700; font-size: 118px; line-height: 0.86;
+        letter-spacing: -0.045em; text-transform: uppercase; color: var(--chalk);
+      }
+      h1 .red { color: var(--red); }
+
+      .rule { margin-top: 40px; width: 108px; height: 3px; background: var(--red); }
+
+      .foot { margin-top: 34px; display: flex; align-items: flex-end; justify-content: space-between; }
+      .foot p { max-width: 470px; font-size: 17px; line-height: 1.5; color: var(--ash); }
+      .foot .meta {
+        font-size: 12px; font-weight: 500; letter-spacing: 0.22em;
+        text-transform: uppercase; color: var(--smoke); text-align: right;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="grid"></div>
+    <div class="glow"></div>
+
+    <div class="frame">
+      <div class="brand">
+        <svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
+          <path d="M7 6h18v4.6L17.4 26h-5.6l7.6-15.4H7z" fill="#fff" />
+          <rect x="7" y="21" width="4.6" height="4.6" fill="#E50914" />
+        </svg>
+        <span class="name">S7 LABS</span>
+        <span class="div"></span>
+        <span class="kicker">Digital Studio</span>
+      </div>
+
+      <h1>Think.<br />Build.<br /><span class="red">Evolve.</span></h1>
+      <div class="rule"></div>
+
+      <div class="foot">
+        <p>
+          We design and build digital experiences that help ambitious businesses stand out,
+          connect and grow.
+        </p>
+        <span class="meta">Web · Brand<br />UI/UX · E-Commerce</span>
+      </div>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,26 @@
+{
+  "name": "s7-labs",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "description": "S7 Labs — digital studio. Think. Build. Evolve.",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "framer-motion": "^13.1.0",
+    "lucide-react": "^1.31.0",
+    "react": "^19.2.8",
+    "react-dom": "^19.2.8",
+    "react-router-dom": "^7.18.2"
+  },
+  "devDependencies": {
+    "@tailwindcss/vite": "^4.3.3",
+    "@vitejs/plugin-react": "^6.0.5",
+    "playwright": "^1.62.1",
+    "tailwindcss": "^4.3.3",
+    "vite": "^8.2.1"
+  }
+}
