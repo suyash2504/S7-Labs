@@ -146,13 +146,15 @@ export function Footer() {
 
           <div className="flex items-center gap-6">
             <span className="label text-smoke">{site.location}</span>
+            {/* The box used to be `border-line` on `bg-carbon` — 1.5:1, which
+                read as no border at all. Now a red outline with a slow halo. */}
             <button
               type="button"
               onClick={toTop}
-              className="group flex cursor-pointer items-center gap-2 text-xs font-medium text-ash transition-colors hover:text-chalk"
+              className="group flex cursor-pointer items-center gap-2 text-xs font-medium text-chalk"
             >
               Back to top
-              <span className="flex size-8 items-center justify-center border border-line transition-colors group-hover:border-red/60">
+              <span className="glow-pulse flex size-8 items-center justify-center border border-red">
                 <ArrowUp
                   aria-hidden="true"
                   strokeWidth={1.5}

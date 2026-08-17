@@ -235,6 +235,31 @@
   will-change: transform;
 }
 
+/* Slow red halo, used on the footer's back-to-top control.
+   The glow sits on a pseudo-element and only its opacity animates — animating
+   box-shadow directly forces a repaint every frame, opacity is composited. */
+@keyframes s7-glow-pulse {
+  0%,
+  100% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+@utility glow-pulse {
+  position: relative;
+
+  &::after {
+    content: '';
+    position: absolute;
+    inset: -1px;
+    pointer-events: none;
+    box-shadow: 0 0 14px 0 rgba(229, 9, 20, 0.55);
+    animation: s7-glow-pulse 2.6s var(--ease-in-out-quint) infinite;
+  }
+}
+
 @keyframes s7-pulse-dot {
   0%,
   100% {
