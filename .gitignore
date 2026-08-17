@@ -11,3 +11,6 @@ dist-ssr
 
 # Lighthouse report output
 lh.json
+
+# Build zip for manual upload
+s7-labs-site.zip
