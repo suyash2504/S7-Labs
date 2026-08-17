@@ -33,7 +33,7 @@ export const site = {
   whatsapp: {
     // 91 = India country code + the 10-digit mobile. wa.me rejects a bare
     // local number, so the country code is not optional here.
-    number: '918871693737',
+    number: '918359808081',
     message: "Hi S7 Labs — I'd like to talk about a project.",
   },
   founded: 2026,

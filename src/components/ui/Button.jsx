@@ -10,9 +10,10 @@ const VARIANTS = {
   /* Solid white block that flips to red on hover — the loudest thing we do. */
   primary:
     'bg-chalk text-void border border-chalk hover:bg-red hover:border-red hover:text-white',
-  /* Hairline outline that warms up to red. */
+  /* Hairline outline whose border thickens inward in red on hover. Uses an
+     inset shadow rather than border-width so the button never changes size. */
   secondary:
-    'bg-transparent text-chalk border border-line hover:border-red/70 hover:text-white hover:bg-red/[0.07]',
+    'bg-transparent text-chalk border border-line shadow-[inset_0_0_0_0_var(--color-red)] hover:shadow-[inset_0_0_0_2px_var(--color-red)] hover:text-white',
   /* Inverted — used on light/red-glow surfaces. */
   ghost:
     'bg-transparent text-ash border border-transparent hover:text-chalk hover:border-line',
@@ -114,7 +115,7 @@ export function Button({
     'group relative inline-flex items-center justify-center gap-2.5 rounded-[3px]',
     fullWidth && 'w-full',
     'font-sans font-medium tracking-[0.02em] whitespace-nowrap select-none',
-    'transition-colors duration-300 ease-[var(--ease-out-expo)]',
+    'transition-[color,background-color,border-color,box-shadow] duration-300 ease-[var(--ease-out-expo)]',
     'focus-visible:outline-2 focus-visible:outline-offset-3 focus-visible:outline-red-bright',
     VARIANTS[variant],
     SIZES[size],

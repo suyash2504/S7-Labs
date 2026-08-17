@@ -140,7 +140,7 @@ function ScrollCue({ reduced }) {
             className="absolute inset-x-0 h-3 bg-red"
             initial={{ y: -14 }}
             animate={{ y: 34 }}
-            transition={{ duration: 2.1, repeat: Infinity, ease: 'easeInOut', repeatDelay: 0.35 }}
+            transition={{ duration: 1.15, repeat: Infinity, ease: 'easeInOut', repeatDelay: 0.12 }}
           />
         )}
       </span>
