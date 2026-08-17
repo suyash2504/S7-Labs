@@ -57,9 +57,11 @@ export function About() {
             </Reveal>
 
             <Reveal delay={0.24}>
+              {/* Solo studio. Stated plainly rather than dressed up as a
+                  "small team" — the direct-access angle is the actual pitch. */}
               <p className="mt-7 max-w-xl text-base leading-relaxed text-smoke">
-                We work as a small, senior team — which means the people who plan your project
-                are the people who design and build it.
+                S7 Labs is a one-person studio. The person you brief is the person who designs,
+                builds and ships it — no handoffs, nothing lost in between.
               </p>
             </Reveal>
 

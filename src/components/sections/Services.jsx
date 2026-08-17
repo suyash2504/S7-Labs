@@ -24,7 +24,7 @@ export function Services() {
           index="(02)"
           eyebrow="Services"
           title="What We Do"
-          lede="Five disciplines, one team. Most projects use more than one."
+          lede="Five disciplines. Most projects need more than one."
         />
 
         <div className="mt-16 sm:mt-20">

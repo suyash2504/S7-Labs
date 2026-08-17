@@ -66,9 +66,12 @@ export default function Contact() {
                   <dd className="mt-2.5 text-sm text-ash">{site.location}</dd>
                 </div>
                 <div>
-                  <dt className="label text-smoke">Working with</dt>
+                  {/* Describes how projects are run, not a volume of past work
+                      that doesn't exist yet. */}
+                  <dt className="label text-smoke">How it works</dt>
                   <dd className="mt-2.5 text-sm text-ash">
-                    Businesses of any size, anywhere — most of our work happens remotely.
+                    Remotely, wherever you are — and you deal directly with the person designing
+                    and building the site.
                   </dd>
                 </div>
                 <div>
