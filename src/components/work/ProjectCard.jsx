@@ -104,6 +104,14 @@ export function ProjectCard({ project, flip = false, delay = 0, priority = false
               {project.year}
             </span>
 
+            {/* Says plainly that this was self-initiated rather than client
+                work. The build is real either way; the relationship isn't. */}
+            {project.kind === 'concept' && (
+              <span className="pointer-events-none absolute top-4 right-4 border border-line bg-void/70 px-2.5 py-1 font-mono text-[0.5625rem] tracking-[0.2em] text-ash backdrop-blur-sm sm:top-6 sm:right-6">
+                CONCEPT
+              </span>
+            )}
+
             {/* Red edge that draws in on hover */}
             {!upcoming && (
               <span

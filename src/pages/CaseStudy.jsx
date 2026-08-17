@@ -51,8 +51,13 @@ export default function CaseStudy() {
             </Link>
           </Reveal>
 
-          <Reveal delay={0.06} className="mt-12 flex items-center gap-5 sm:mt-16">
+          <Reveal delay={0.06} className="mt-12 flex flex-wrap items-center gap-5 sm:mt-16">
             <Eyebrow>Project {project.number}</Eyebrow>
+            {project.kind === 'concept' && (
+              <span className="border border-line px-2.5 py-1 font-mono text-[0.5625rem] tracking-[0.2em] text-ash">
+                CONCEPT
+              </span>
+            )}
           </Reveal>
 
           <RevealLines
@@ -85,7 +90,11 @@ export default function CaseStudy() {
       <section className="shell mt-16 sm:mt-24">
         <LineRule />
         <div className="grid gap-10 pt-10 sm:grid-cols-2 lg:grid-cols-4 lg:gap-8">
-          <MetaBlock label="Client" items={[project.subtitle ?? project.title]} />
+          {/* "Client" would be a claim these concepts can't back. */}
+          <MetaBlock
+            label={project.kind === 'concept' ? 'Subject' : 'Client'}
+            items={[project.subtitle ?? project.title]}
+          />
           <MetaBlock label="Services" items={study.deliverables ?? project.disciplines ?? []} />
           <MetaBlock label="Stack" items={study.stack ?? []} />
           <MetaBlock label="Year" items={[project.year]} />

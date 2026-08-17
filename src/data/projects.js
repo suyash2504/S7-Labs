@@ -29,8 +29,9 @@ export const projects = [
     disciplines: ['Web Design', 'Development', '3D / WebGL', 'Art Direction'],
     year: '2026',
     status: 'live',
+    kind: 'concept',
     summary:
-      'A private strength facility that needed a website with the same weight as its equipment. We built a dark, engineered experience with a real-time 3D machine at its centre.',
+      'A self-initiated concept for a precision-equipment gym, built to test whether a real-time 3D machine could carry a fitness site instead of the usual stock photography.',
     // Real captures of the live build (see scripts/capture-project.mjs).
     // `cover` takes precedence over `visual` in <ProjectVisual />.
     cover: '/work/apex-gym/cover.jpg',
@@ -38,7 +39,7 @@ export const projects = [
     caseStudy: {
       ready: true,
       intro:
-        'Apex is a precision-equipment strength facility. Most gym websites lead with stock photography of people mid-rep; Apex wanted the opposite — a site that treats the hardware and the programming as the product, and reads more like a technical brand than a fitness chain.',
+        'Apex Performance Lab is a concept brand for a precision-equipment strength facility. Most gym sites lead with photography of people mid-rep; this build takes the opposite position — treat the hardware and the programming as the product, and let the site read like a technical brand rather than a fitness chain.',
       sections: [
         {
           label: 'The Approach',
@@ -77,7 +78,7 @@ export const projects = [
       ],
       stack: ['React', 'Vite', 'TypeScript', 'Three.js / R3F', 'GSAP', 'Lenis', 'Zustand'],
       facts: [
-        { label: 'Scope', value: 'Full site design + build' },
+        { label: 'Type', value: 'Self-initiated concept' },
         { label: 'Sections', value: '10' },
         { label: 'Hero', value: 'Real-time WebGL' },
         { label: 'Year', value: '2026' },
@@ -94,14 +95,15 @@ export const projects = [
     disciplines: ['Web Design', 'Development', '3D / WebGL', 'Booking Flow'],
     year: '2026',
     status: 'live',
+    kind: 'concept',
     summary:
-      'A gaming lounge that needed more than a brochure — a neon-lit site where picking a rig, a date and a time slot happens in one uninterrupted flow, priced and paid for before you leave the page.',
+      'A concept build for a gaming lounge, testing how far a booking flow can go on a static site: pick a rig, a date and a slot, watch the price update, and pay without leaving the page.',
     cover: '/work/joystick-junction/cover.jpg',
     visual: { key: 'arcade', accent: '#E50914', accent2: '#FF3B45' },
     caseStudy: {
       ready: true,
       intro:
-        'Joystick Junction is a premium gaming lounge in Raipur running high-end PCs, PS4 and PS5 pods, and a full motion racing simulator. Most lounges in the category stop at a phone number and an Instagram page. This one had to take the booking itself — choose a platform, see the price move, reserve the seat and pay, without a single call.',
+        'Joystick Junction is a concept for a premium gaming lounge in Raipur — high-end PCs, PS4 and PS5 pods, and a full motion racing simulator. Most lounges in the category stop at a phone number and an Instagram page. The question this build set out to answer was whether the site could take the booking itself: choose a platform, see the price move, reserve the seat and pay, without a single call.',
       sections: [
         {
           label: 'The Approach',
@@ -144,7 +146,7 @@ export const projects = [
       ],
       stack: ['HTML', 'CSS', 'JavaScript', 'Three.js', 'Razorpay', 'GitHub Pages'],
       facts: [
-        { label: 'Scope', value: 'Full site design + build' },
+        { label: 'Type', value: 'Self-initiated concept' },
         { label: 'Sections', value: '10' },
         { label: 'Platforms', value: '4' },
         { label: 'Booking', value: 'Live pricing + pay' },

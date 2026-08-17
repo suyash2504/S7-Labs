@@ -76,6 +76,7 @@ Add one object to `projects` in `src/data/projects.js`. Routes, the home reel,
   category: 'Sector / Web Design / Development',
   year: '2026',
   status: 'live',              // 'upcoming' renders a locked slot with no link
+  kind: 'concept',             // optional — badges the card as self-initiated
   summary: '…',
   visual: { key: 'placeholder' },
   cover: '/work/new-client/cover.webp',   // optional — replaces the generated art
