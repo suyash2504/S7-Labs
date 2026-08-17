@@ -79,11 +79,11 @@ export const projects = [
       stack: ['React', 'Vite', 'TypeScript', 'Three.js / R3F', 'GSAP', 'Lenis', 'Zustand'],
       facts: [
         { label: 'Type', value: 'Self-initiated concept' },
-        { label: 'Sections', value: '10' },
+        { label: 'Sections', value: '11' },
         { label: 'Hero', value: 'Real-time WebGL' },
         { label: 'Year', value: '2026' },
       ],
-      link: null,
+      link: 'https://suyash2504.github.io/Apex-Gym/',
     },
   },
   {
