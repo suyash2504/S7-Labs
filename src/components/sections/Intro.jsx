@@ -1,6 +1,6 @@
 import { Section } from '@/components/ui/SectionHeading'
 import { Reveal, LineRule } from '@/components/ui/Reveal'
-import { Eyebrow, SectionIndex } from '@/components/ui/Eyebrow'
+import { SectionMark } from '@/components/ui/Eyebrow'
 import { ScrollWords } from '@/components/ui/ScrollWords'
 import { capabilities } from '@/data/site'
 
@@ -15,9 +15,8 @@ export function Intro() {
       <div className="shell">
         <LineRule className="mb-10 sm:mb-14" />
 
-        <Reveal className="flex items-center gap-5">
-          <SectionIndex>(01)</SectionIndex>
-          <Eyebrow marker={false}>Introduction</Eyebrow>
+        <Reveal>
+          <SectionMark index="01">Introduction</SectionMark>
         </Reveal>
 
         <h2 className="mt-12 max-w-[18ch] font-display text-d1 uppercase sm:mt-20">

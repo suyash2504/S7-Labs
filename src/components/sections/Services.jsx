@@ -21,7 +21,7 @@ export function Services() {
     <Section id="services" tone="carbon">
       <div className="shell">
         <SectionHeading
-          index="(02)"
+          index="02"
           eyebrow="Services"
           title="What We Do"
           lede="Five disciplines. Most projects need more than one."

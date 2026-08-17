@@ -8,7 +8,7 @@ export function WhyS7() {
     <Section id="why" tone="carbon">
       <div className="shell">
         <SectionHeading
-          index="(05)"
+          index="05"
           eyebrow="Principles"
           title="Why S7 Labs"
           lede="Four things that decide how every project here gets made."

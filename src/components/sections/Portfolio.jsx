@@ -12,7 +12,7 @@ export function Portfolio() {
     <Section id="work">
       <div className="shell">
         <SectionHeading
-          index="(03)"
+          index="03"
           eyebrow="Portfolio"
           title="Selected Work"
           lede="A few things we've designed and built."

@@ -1,8 +1,10 @@
+import { useEffect, useRef, useState } from 'react'
 import { motion } from 'framer-motion'
 import { Link } from 'react-router-dom'
 import { ArrowRight, ArrowUpRight } from 'lucide-react'
 import { cn } from '@/lib/cn'
 import { useMagnetic } from '@/lib/useMagnetic'
+import { usePrefersReducedMotion } from '@/lib/hooks'
 
 const VARIANTS = {
   /* Solid white block that flips to red on hover — the loudest thing we do. */
@@ -25,6 +27,62 @@ const SIZES = {
 const ICONS = { right: ArrowRight, up: ArrowUpRight, none: null }
 
 /**
+ * Hover-scramble label.
+ *
+ * Two stacked copies: a transparent one holding the real text (which supplies
+ * both the accessible name and a fixed width) and a decorative overlay showing
+ * the scrambling characters. Without the width holder the button visibly
+ * jitters while scrambling, because the label is set in a proportional face.
+ */
+const SCRAMBLE_CHARS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ#%&/*'
+
+function ScrambleLabel({ text, active }) {
+  const [out, setOut] = useState(text)
+  const timer = useRef(null)
+
+  useEffect(() => setOut(text), [text])
+  useEffect(() => () => clearInterval(timer.current), [])
+
+  useEffect(() => {
+    clearInterval(timer.current)
+    if (!active) {
+      setOut(text)
+      return
+    }
+    let frame = 0
+    timer.current = setInterval(() => {
+      setOut(
+        text
+          .split('')
+          .map((c, i) =>
+            c === ' '
+              ? ' '
+              : i < frame / 2
+                ? text[i]
+                : SCRAMBLE_CHARS[(Math.random() * SCRAMBLE_CHARS.length) | 0],
+          )
+          .join(''),
+      )
+      frame += 1
+      if (frame / 2 > text.length) {
+        clearInterval(timer.current)
+        setOut(text)
+      }
+    }, 30)
+    return () => clearInterval(timer.current)
+  }, [active, text])
+
+  return (
+    <span className="relative z-10 inline-block">
+      <span className="opacity-0">{text}</span>
+      <span aria-hidden="true" className="absolute inset-0 flex items-center justify-center">
+        {out}
+      </span>
+    </span>
+  )
+}
+
+/**
  * The site's single button. Renders as <button>, <a> or react-router <Link>
  * depending on the props given — semantics stay correct in all three cases.
  */
@@ -44,6 +102,14 @@ export function Button({
   const { ref, x, y } = useMagnetic(magnetic ? 0.22 : 0)
   const wrapperClass = fullWidth ? 'flex w-full' : 'inline-flex'
 
+  const reduced = usePrefersReducedMotion()
+  const [hovered, setHovered] = useState(false)
+  // Only plain-string labels can scramble; anything richer renders untouched.
+  const canScramble = typeof children === 'string' && !reduced
+  const hoverProps = canScramble
+    ? { onMouseEnter: () => setHovered(true), onMouseLeave: () => setHovered(false) }
+    : {}
+
   const classes = cn(
     'group relative inline-flex items-center justify-center gap-2.5 rounded-[3px]',
     fullWidth && 'w-full',
@@ -57,7 +123,11 @@ export function Button({
 
   const inner = (
     <>
-      <span className="relative z-10">{children}</span>
+      {canScramble ? (
+        <ScrambleLabel text={children} active={hovered} />
+      ) : (
+        <span className="relative z-10">{children}</span>
+      )}
       {Icon && (
         <Icon
           aria-hidden="true"
@@ -78,7 +148,7 @@ export function Button({
   if (to) {
     return (
       <motion.div ref={ref} style={style} className={wrapperClass}>
-        <Link to={to} className={classes} {...props}>
+        <Link to={to} className={classes} {...hoverProps} {...props}>
           {inner}
         </Link>
       </motion.div>
@@ -92,6 +162,7 @@ export function Button({
         <a
           href={href}
           className={classes}
+          {...hoverProps}
           {...(external ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
           {...props}
         >
@@ -103,7 +174,7 @@ export function Button({
 
   return (
     <motion.div ref={ref} style={style} className={wrapperClass}>
-      <button type="button" className={classes} {...props}>
+      <button type="button" className={classes} {...hoverProps} {...props}>
         {inner}
       </button>
     </motion.div>

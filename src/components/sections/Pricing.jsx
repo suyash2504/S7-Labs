@@ -13,7 +13,7 @@ export function Pricing() {
     <Section id="pricing" tone="carbon">
       <div className="shell">
         <SectionHeading
-          index="(07)"
+          index="07"
           eyebrow="Pricing"
           title="Where To Start"
           lede="Transparent starting points. The right number comes out of the conversation."

@@ -18,11 +18,32 @@ export function Eyebrow({ children, className, marker = true, pulse = false }) {
   )
 }
 
-/** Section counter — `(02)` style, monospace, muted. */
-export function SectionIndex({ children, className }) {
+/**
+ * The section marker used across the site: an oversized outlined counter with
+ * the label set beside its baseline.
+ *
+ * It replaced a `(02)` in 11px muted mono next to an 11px muted label — both
+ * so quiet that readers lost track of which section they were in. The number
+ * is decorative sequencing, so it's hidden from assistive tech; the label
+ * carries the meaning.
+ */
+export function SectionMark({ index, children, className }) {
   return (
-    <span className={cn('font-mono text-[0.6875rem] tracking-[0.2em] text-smoke', className)}>
-      {children}
+    <span className={cn('flex items-end gap-3.5 sm:gap-4', className)}>
+      {index && (
+        <span
+          aria-hidden="true"
+          className="font-display text-[2.5rem] leading-[0.76] font-bold text-transparent select-none sm:text-[3.25rem]"
+          // Lighter than --color-line: at 1px on near-black the token outline
+          // all but vanishes at this size.
+          style={{ WebkitTextStroke: '1.5px #3a3a3a' }}
+        >
+          {index}
+        </span>
+      )}
+      <span className="pb-1 font-sans text-[0.6875rem] font-bold tracking-[0.24em] text-chalk uppercase sm:text-xs">
+        {children}
+      </span>
     </span>
   )
 }

@@ -18,7 +18,7 @@ export default function Work() {
     <PageTransition>
       <PageHeader
         eyebrow="Selected Work"
-        index="(01)"
+        index="01"
         title={['Work']}
         lede="A few things we've designed and built. More is on the way."
         meta={[

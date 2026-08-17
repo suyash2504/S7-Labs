@@ -60,7 +60,8 @@ export function HeroVisual({ active, reduced, className }) {
         <HeroSculpture active={active} reduced={reduced} />
       </motion.div>
 
-      {/* HUD chrome */}
+      {/* Corner brackets only. The STRUCTURE-01 label and the coordinates
+          were removed — they read as clutter rather than atmosphere. */}
       <motion.div
         aria-hidden="true"
         className="pointer-events-none absolute inset-6 hidden lg:block"
@@ -73,14 +74,6 @@ export function HeroVisual({ active, reduced, className }) {
         <Bracket className="bottom-0 left-0 border-b border-l" />
         <Bracket className="right-0 bottom-0 border-r border-b" />
 
-        <span className="absolute top-0 left-9 -translate-y-1/2 bg-void px-2 font-mono text-[0.625rem] tracking-[0.2em] text-smoke">
-          S7 / STRUCTURE—01
-        </span>
-
-        <span className="absolute right-9 bottom-0 flex translate-y-1/2 items-center gap-2 bg-void px-2 font-mono text-[0.625rem] tracking-[0.2em] text-smoke">
-          <span className="size-1 bg-red animate-pulse-dot" />
-          21.2514° N / 81.6296° E
-        </span>
       </motion.div>
     </div>
   )

@@ -2,7 +2,7 @@ import { useRef } from 'react'
 import { motion, useInView, useScroll, useSpring, useTransform } from 'framer-motion'
 import { Section } from '@/components/ui/SectionHeading'
 import { Reveal, LineRule } from '@/components/ui/Reveal'
-import { Eyebrow, SectionIndex } from '@/components/ui/Eyebrow'
+import { SectionMark } from '@/components/ui/Eyebrow'
 import { processStages } from '@/data/process'
 import { EASE, viewport } from '@/lib/motion'
 import { usePrefersReducedMotion } from '@/lib/hooks'
@@ -34,11 +34,10 @@ export function Process() {
     <Section id="process" className="overflow-x-clip">
       <div className="shell">
         <LineRule className="mb-8 sm:mb-10" />
-        <Reveal className="flex flex-wrap items-center gap-5">
-          <SectionIndex>(04)</SectionIndex>
-          <Eyebrow marker={false}>The S7 Method</Eyebrow>
-          <span aria-hidden="true" className="hidden h-px flex-1 bg-line sm:block" />
-          <span className="label hidden text-smoke lg:inline">Think → Build → Evolve</span>
+        <Reveal className="flex flex-wrap items-end gap-5">
+          <SectionMark index="04">The S7 Method</SectionMark>
+          <span aria-hidden="true" className="hidden h-px flex-1 bg-line sm:block sm:mb-2" />
+          <span className="label hidden text-smoke lg:inline lg:mb-1">Think → Build → Evolve</span>
         </Reveal>
 
         <div ref={ref} className="relative mt-16 sm:mt-24">

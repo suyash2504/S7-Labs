@@ -1,6 +1,6 @@
 import { Section } from '@/components/ui/SectionHeading'
 import { Reveal, RevealLines, LineRule } from '@/components/ui/Reveal'
-import { Eyebrow, SectionIndex } from '@/components/ui/Eyebrow'
+import { SectionMark } from '@/components/ui/Eyebrow'
 import { TextLink } from '@/components/ui/Button'
 import { site, capabilities } from '@/data/site'
 
@@ -13,9 +13,8 @@ export function About() {
 
         <div className="grid gap-12 lg:grid-cols-12 lg:gap-16">
           <div className="lg:col-span-4">
-            <Reveal className="flex items-center gap-5">
-              <SectionIndex>(06)</SectionIndex>
-              <Eyebrow marker={false}>About</Eyebrow>
+            <Reveal>
+              <SectionMark index="06">About</SectionMark>
             </Reveal>
 
             <Reveal delay={0.1} className="mt-10 hidden lg:block">

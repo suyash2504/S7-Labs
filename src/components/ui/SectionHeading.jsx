@@ -1,5 +1,5 @@
 import { cn } from '@/lib/cn'
-import { Eyebrow, SectionIndex } from './Eyebrow'
+import { SectionMark } from './Eyebrow'
 import { Reveal, RevealLines, LineRule } from './Reveal'
 
 /**
@@ -27,9 +27,8 @@ export function SectionHeading({
           align === 'center' && 'sm:flex-col sm:items-center sm:text-center',
         )}
       >
-        <Reveal className="flex items-center gap-5">
-          {index && <SectionIndex>{index}</SectionIndex>}
-          {eyebrow && <Eyebrow marker={!index}>{eyebrow}</Eyebrow>}
+        <Reveal>
+          <SectionMark index={index}>{eyebrow}</SectionMark>
         </Reveal>
         {children}
       </div>

@@ -1,5 +1,5 @@
 import { Reveal, RevealLines } from '@/components/ui/Reveal'
-import { Eyebrow, SectionIndex } from '@/components/ui/Eyebrow'
+import { SectionMark } from '@/components/ui/Eyebrow'
 import { cn } from '@/lib/cn'
 
 /**
@@ -32,9 +32,8 @@ export function PageHeader({ eyebrow, index, title, lede, meta, className, child
       />
 
       <div className="shell relative">
-        <Reveal className="flex items-center gap-5">
-          {index && <SectionIndex>{index}</SectionIndex>}
-          {eyebrow && <Eyebrow marker={!index}>{eyebrow}</Eyebrow>}
+        <Reveal>
+          <SectionMark index={index}>{eyebrow}</SectionMark>
         </Reveal>
 
         <RevealLines
