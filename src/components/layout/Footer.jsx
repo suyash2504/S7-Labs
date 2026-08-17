@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom'
 import { ArrowUp } from 'lucide-react'
 import { LogoMark } from './Logo'
 import { Reveal } from '@/components/ui/Reveal'
-import { footerLinks, site, socials, capabilities, whatsappUrl } from '@/data/site'
+import { footerLinks, site, socials, capabilities, whatsappUrl, hasWhatsApp } from '@/data/site'
 
 export function Footer() {
   const toTop = () =>
@@ -83,16 +83,18 @@ export function Footer() {
                     {site.email}
                   </a>
                 </li>
-                <li>
-                  <a
-                    href={whatsappUrl()}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-sm text-ash transition-colors hover:text-chalk"
-                  >
-                    WhatsApp
-                  </a>
-                </li>
+                {hasWhatsApp && (
+                  <li>
+                    <a
+                      href={whatsappUrl()}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-sm text-ash transition-colors hover:text-chalk"
+                    >
+                      WhatsApp
+                    </a>
+                  </li>
+                )}
                 <li className="text-sm text-smoke">{site.location}</li>
               </ul>
 

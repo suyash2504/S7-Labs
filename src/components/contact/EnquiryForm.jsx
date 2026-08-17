@@ -4,7 +4,7 @@ import { Check, TriangleAlert } from 'lucide-react'
 import { Field } from './Field'
 import { Button } from '@/components/ui/Button'
 import { services } from '@/data/services'
-import { site } from '@/data/site'
+import { site, hasWhatsApp } from '@/data/site'
 import { budgetOptions } from '@/data/pricing'
 import { submitEnquiry, validateEnquiry, HONEYPOT } from '@/lib/enquiry'
 import { EASE } from '@/lib/motion'
@@ -71,8 +71,11 @@ export function EnquiryForm() {
       setValues(EMPTY)
     } catch (err) {
       setStatus('error')
+      // Only offer WhatsApp as a fallback if there is actually a number set.
       setMessage(
-        `${err.message}. Please email us directly at ${site.email}, or reach us on WhatsApp — we'll pick it up there.`,
+        `${err.message}. Please email us directly at ${site.email}${
+          hasWhatsApp ? ", or reach us on WhatsApp — we'll pick it up there" : ''
+        }.`,
       )
     }
   }

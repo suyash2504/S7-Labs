@@ -11,16 +11,25 @@ export const site = {
     'A digital studio creating websites, brands and digital experiences for ambitious businesses.',
   location: 'Raipur, India',
   email: 'hello@s7labs.in',
-  // Update once — used by every WhatsApp CTA on the site.
+  // Used by every WhatsApp CTA on the site. Set `number` once, in full
+  // international format without symbols, e.g. '919876543210'.
+  //
+  // Left null deliberately: while it is null, every WhatsApp button and link
+  // hides itself rather than opening a dead chat. Fill it in and they all
+  // reappear — no other file needs touching.
   whatsapp: {
-    number: '910000000000',
+    number: null,
     message: "Hi S7 Labs — I'd like to talk about a project.",
   },
   founded: 2026,
 }
 
+export const hasWhatsApp = Boolean(site.whatsapp.number)
+
 export const whatsappUrl = () =>
-  `https://wa.me/${site.whatsapp.number}?text=${encodeURIComponent(site.whatsapp.message)}`
+  hasWhatsApp
+    ? `https://wa.me/${site.whatsapp.number}?text=${encodeURIComponent(site.whatsapp.message)}`
+    : null
 
 /** Primary navigation. `hash` entries resolve against the home route. */
 export const navLinks = [

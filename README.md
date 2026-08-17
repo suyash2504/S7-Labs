@@ -213,8 +213,10 @@ Two known items, both deliberate:
 
 ## Before going live
 
-- **Replace `site.whatsapp.number` in `src/data/site.js`** — it is currently
-  the placeholder `910000000000`, so every WhatsApp CTA points nowhere.
+- **WhatsApp is switched off.** `site.whatsapp.number` is `null`, so every
+  WhatsApp button and link hides itself rather than opening a dead chat. Set the
+  number (full international format, no symbols, e.g. `919876543210`) and they
+  all reappear — no other file needs touching.
 - Add real social URLs in `socials` — entries with `href: null` don't render.
 - Swap `hello@s7labs.in` and the `https://s7labs.in` canonical/OG URLs if the
   domain differs.

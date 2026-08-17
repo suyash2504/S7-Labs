@@ -2,7 +2,7 @@ import { PageTransition } from '@/components/layout/PageTransition'
 import { PageHeader } from '@/components/layout/PageHeader'
 import { EnquiryForm } from '@/components/contact/EnquiryForm'
 import { Reveal, LineRule } from '@/components/ui/Reveal'
-import { site, whatsappUrl } from '@/data/site'
+import { site, whatsappUrl, hasWhatsApp } from '@/data/site'
 import { pricingDisclaimer } from '@/data/pricing'
 import { useSeo } from '@/lib/useSeo'
 import { useCopy } from '@/lib/hooks'
@@ -37,22 +37,24 @@ export default function Contact() {
                 <li>
                   <CopyRow value={site.email} label="Email" />
                 </li>
-                <li>
-                  <a
-                    href={whatsappUrl()}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="group flex items-center justify-between border border-line px-5 py-4 transition-colors duration-400 hover:border-red/60 hover:bg-red/[0.05]"
-                  >
-                    <span className="text-sm font-medium text-chalk">WhatsApp Us</span>
-                    <span
-                      aria-hidden="true"
-                      className="text-xs text-smoke transition-transform duration-400 ease-[var(--ease-out-expo)] group-hover:-translate-y-0.5 group-hover:translate-x-0.5"
+                {hasWhatsApp && (
+                  <li>
+                    <a
+                      href={whatsappUrl()}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="group flex items-center justify-between border border-line px-5 py-4 transition-colors duration-400 hover:border-red/60 hover:bg-red/[0.05]"
                     >
-                      ↗
-                    </span>
-                  </a>
-                </li>
+                      <span className="text-sm font-medium text-chalk">WhatsApp Us</span>
+                      <span
+                        aria-hidden="true"
+                        className="text-xs text-smoke transition-transform duration-400 ease-[var(--ease-out-expo)] group-hover:-translate-y-0.5 group-hover:translate-x-0.5"
+                      >
+                        ↗
+                      </span>
+                    </a>
+                  </li>
+                )}
               </ul>
             </Reveal>
 

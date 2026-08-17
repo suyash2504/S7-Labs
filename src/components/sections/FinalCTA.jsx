@@ -3,7 +3,7 @@ import { motion, useScroll, useTransform } from 'framer-motion'
 import { Button } from '@/components/ui/Button'
 import { Reveal, RevealLines } from '@/components/ui/Reveal'
 import { Eyebrow } from '@/components/ui/Eyebrow'
-import { site, whatsappUrl } from '@/data/site'
+import { site, whatsappUrl, hasWhatsApp } from '@/data/site'
 import { usePrefersReducedMotion } from '@/lib/hooks'
 
 /**
@@ -69,9 +69,11 @@ export function FinalCTA() {
             <Button to="/contact" size="lg" icon="up">
               Start a Project
             </Button>
-            <Button href={whatsappUrl()} variant="secondary" size="lg" icon="up">
-              WhatsApp Us
-            </Button>
+            {hasWhatsApp && (
+              <Button href={whatsappUrl()} variant="secondary" size="lg" icon="up">
+                WhatsApp Us
+              </Button>
+            )}
           </div>
         </Reveal>
 

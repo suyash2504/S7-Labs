@@ -3,7 +3,7 @@ import { AnimatePresence, motion } from 'framer-motion'
 import { Link } from 'react-router-dom'
 import { X } from 'lucide-react'
 import { Logo } from './Logo'
-import { navLinks, site, socials, whatsappUrl } from '@/data/site'
+import { navLinks, site, socials, whatsappUrl, hasWhatsApp } from '@/data/site'
 import { EASE } from '@/lib/motion'
 import { useScrollLock } from '@/lib/hooks'
 
@@ -123,14 +123,16 @@ export function MobileMenu({ open, onClose }) {
               >
                 {site.email}
               </a>
-              <a
-                href={whatsappUrl()}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="label border border-line px-4 py-2.5 text-ash transition-colors hover:border-red/60 hover:text-chalk"
-              >
-                WhatsApp Us
-              </a>
+              {hasWhatsApp && (
+                <a
+                  href={whatsappUrl()}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="label border border-line px-4 py-2.5 text-ash transition-colors hover:border-red/60 hover:text-chalk"
+                >
+                  WhatsApp Us
+                </a>
+              )}
             </div>
             <div className="mt-5 flex items-center justify-between gap-4">
               <span className="label text-smoke">{site.location}</span>
