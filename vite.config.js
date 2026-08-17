@@ -67,29 +67,42 @@ export default defineConfig(({ mode }) => {
   const env = loadEnv(mode, process.cwd(), '')
   const siteUrl = (env.VITE_SITE_URL || '').replace(/\/$/, '')
 
+  // Single-file build: one self-contained .html that runs off file://.
+  // Everything must land in one chunk, so code splitting and CSS splitting are
+  // both off and scripts/styles get inlined afterwards by scripts/bundle-single.mjs.
+  const single = Boolean(env.VITE_SINGLE_FILE)
+
   return {
-    plugins: [react(), tailwindcss(), seo(siteUrl)],
+    plugins: [react(), tailwindcss(), ...(single ? [] : [seo(siteUrl)])],
     resolve: {
       alias: { '@': path.resolve(process.cwd(), 'src') },
     },
     build: {
       target: 'es2022',
+      ...(single
+        ? { outDir: 'dist-single', cssCodeSplit: false, assetsInlineLimit: 100_000_000 }
+        : {}),
       rollupOptions: {
-        output: {
-          // Split the animation runtime out of the app shell so the first paint
-          // isn't waiting on it. (Rolldown wants the function form.)
-          manualChunks(id) {
-            if (!id.includes('node_modules')) return
-            if (
-              id.includes('framer-motion') ||
-              id.includes('motion-dom') ||
-              id.includes('motion-utils')
-            )
-              return 'motion'
-            if (id.includes('react-router')) return 'router'
-            if (id.includes('lucide-react')) return 'icons'
-          },
-        },
+        // Rolldown rejects inlineDynamicImports alongside manualChunks, so the
+        // single-file build omits the chunking config entirely rather than
+        // returning undefined from it.
+        output: single
+          ? { inlineDynamicImports: true }
+          : {
+              // Split the animation runtime out of the app shell so the first
+              // paint isn't waiting on it. (Rolldown wants the function form.)
+              manualChunks(id) {
+                if (!id.includes('node_modules')) return
+                if (
+                  id.includes('framer-motion') ||
+                  id.includes('motion-dom') ||
+                  id.includes('motion-utils')
+                )
+                  return 'motion'
+                if (id.includes('react-router')) return 'router'
+                if (id.includes('lucide-react')) return 'icons'
+              },
+            },
       },
     },
   }

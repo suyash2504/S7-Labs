@@ -7,7 +7,8 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "build:single": "vite build && node scripts/bundle-single.mjs"
   },
   "dependencies": {
     "framer-motion": "^13.1.0",

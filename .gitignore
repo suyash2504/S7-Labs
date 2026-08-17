@@ -14,3 +14,7 @@ lh.json
 
 # Build zip for manual upload
 s7-labs-site.zip
+
+# Single-file build
+dist-single
+s7-labs-standalone.html
