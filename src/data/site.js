@@ -18,7 +18,9 @@ export const site = {
   // hides itself rather than opening a dead chat. Fill it in and they all
   // reappear — no other file needs touching.
   whatsapp: {
-    number: null,
+    // 91 = India country code + the 10-digit mobile. wa.me rejects a bare
+    // local number, so the country code is not optional here.
+    number: '918871693737',
     message: "Hi S7 Labs — I'd like to talk about a project.",
   },
   founded: 2026,
