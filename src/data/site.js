@@ -10,7 +10,20 @@ export const site = {
   positioning:
     'A digital studio creating websites, brands and digital experiences for ambitious businesses.',
   location: 'Raipur, India',
-  email: 'hello@s7labs.in',
+  // Swap for a branded address (hello@yourdomain.com) once the domain and
+  // mailbox exist — this one line feeds every email link on the site.
+  email: 'suyash.namdeo07@gmail.com',
+
+  /**
+   * Public origin, e.g. 'https://s7labs.in' — no trailing slash.
+   * Set VITE_SITE_URL in .env once the real domain is known.
+   *
+   * Empty on purpose until then: canonical, og:url, og:image and the sitemap
+   * all need an absolute URL, and pointing those at a domain nobody owns is
+   * worse than omitting them. Everything that depends on this degrades
+   * quietly instead.
+   */
+  url: import.meta.env.VITE_SITE_URL?.replace(/\/$/, '') || '',
   // Used by every WhatsApp CTA on the site. Set `number` once, in full
   // international format without symbols, e.g. '919876543210'.
   //

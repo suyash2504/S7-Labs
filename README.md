@@ -214,8 +214,12 @@ Two known items, both deliberate:
 ## Before going live
 
 - Add real social URLs in `socials` — entries with `href: null` don't render.
-- Swap `hello@s7labs.in` and the `https://s7labs.in` canonical/OG URLs if the
-  domain differs.
+- **Set `VITE_SITE_URL` once the domain exists** (e.g. `https://s7labs.in`).
+  Until then canonical, og:url, og:image and sitemap.xml are omitted rather
+  than pointing at a domain nobody owns. Setting it fills all of them in and
+  generates sitemap.xml from the live projects automatically.
+- Contact email is `suyash.namdeo07@gmail.com` (`site.email`, one line). Swap
+  for a branded address once the domain and mailbox exist.
 - **Joystick Junction has no real screenshots.** Apex Gym now shows an actual
   capture of the live site while Joystick Junction still shows generated
   artwork, so the two sit at different fidelities in the reel. Point the
