@@ -36,7 +36,7 @@ export function Footer() {
           {/* Navigate */}
           <nav className="lg:col-span-2 lg:col-start-6" aria-label="Footer">
             <Reveal>
-              <h2 className="label text-smoke">Navigate</h2>
+              <h2 className="text-[0.6875rem] font-bold tracking-[0.24em] text-chalk uppercase">Navigate</h2>
               <ul className="mt-6 space-y-3">
                 {footerLinks.map((link) => (
                   <li key={link.label}>
@@ -59,7 +59,7 @@ export function Footer() {
           {/* Services */}
           <div className="lg:col-span-2">
             <Reveal delay={0.06}>
-              <h2 className="label text-smoke">Services</h2>
+              <h2 className="text-[0.6875rem] font-bold tracking-[0.24em] text-chalk uppercase">Services</h2>
               <ul className="mt-6 space-y-3">
                 {capabilities.map((c) => (
                   <li key={c} className="text-sm text-ash">
@@ -73,7 +73,7 @@ export function Footer() {
           {/* Connect */}
           <div className="lg:col-span-3">
             <Reveal delay={0.12}>
-              <h2 className="label text-smoke">Connect</h2>
+              <h2 className="text-[0.6875rem] font-bold tracking-[0.24em] text-chalk uppercase">Connect</h2>
               <ul className="mt-6 space-y-3">
                 <li>
                   <a

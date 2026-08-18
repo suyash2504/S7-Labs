@@ -97,7 +97,7 @@ export default function Contact() {
 }
 
 function CopyRow({ value, label }) {
-  const [copied, copy] = useCopy()
+  const [copyState, copy] = useCopy()
 
   return (
     <div className="flex items-stretch border border-line">
@@ -114,7 +114,7 @@ function CopyRow({ value, label }) {
         className="label shrink-0 cursor-pointer border-l border-line px-4 text-smoke transition-colors hover:bg-red/[0.07] hover:text-chalk"
         aria-label={`Copy ${label.toLowerCase()} address`}
       >
-        {copied ? 'Copied' : 'Copy'}
+        {copyState === 'copied' ? 'Copied' : copyState === 'failed' ? 'Failed' : 'Copy'}
       </button>
     </div>
   )

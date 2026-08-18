@@ -1,11 +1,15 @@
+import { Link } from 'react-router-dom'
+import { ArrowUpRight } from 'lucide-react'
 import { Section } from '@/components/ui/SectionHeading'
 import { Reveal, RevealLines, LineRule } from '@/components/ui/Reveal'
 import { SectionMark } from '@/components/ui/Eyebrow'
-import { TextLink } from '@/components/ui/Button'
 import { site, capabilities } from '@/data/site'
+import { useCopy } from '@/lib/hooks'
 
 /** Short, honest introduction. No invented history, no invented team. */
 export function About() {
+  const [copyState, copy] = useCopy()
+
   return (
     <Section id="about">
       <div className="shell">
@@ -64,11 +68,41 @@ export function About() {
               </p>
             </Reveal>
 
-            <Reveal delay={0.3} className="mt-10 flex flex-wrap items-center gap-8">
-              <TextLink to="/contact">Start a conversation</TextLink>
-              <TextLink href={`mailto:${site.email}`} icon="none">
-                {site.email}
-              </TextLink>
+            {/* Stacked rules rather than inline text links: these read as
+                actions and echo the rhythm of the services rows and the
+                pipeline list, so nothing new is introduced. */}
+            <Reveal delay={0.3} className="mt-10 max-w-md">
+              <ul className="border-t border-line">
+                <li className="border-b border-line">
+                  <Link
+                    to="/contact"
+                    className="group flex items-center justify-between py-3.5 transition-[padding-left] duration-400 ease-[var(--ease-out-expo)] hover:pl-2"
+                  >
+                    <span className="text-sm text-chalk">Start a conversation</span>
+                    <ArrowUpRight
+                      aria-hidden="true"
+                      strokeWidth={1.5}
+                      className="size-4 text-smoke transition-[color,transform] duration-400 ease-[var(--ease-out-expo)] group-hover:-translate-x-0.5 group-hover:text-red-bright"
+                    />
+                  </Link>
+                </li>
+                <li className="flex items-center justify-between border-b border-line">
+                  <a
+                    href={`mailto:${site.email}`}
+                    className="group flex-1 py-3.5 transition-[padding-left] duration-400 ease-[var(--ease-out-expo)] hover:pl-2"
+                  >
+                    <span className="text-sm text-chalk">{site.email}</span>
+                  </a>
+                  <button
+                    type="button"
+                    onClick={() => copy(site.email)}
+                    className="shrink-0 cursor-pointer py-3.5 pl-4 text-[0.6875rem] font-medium tracking-[0.16em] text-smoke uppercase transition-colors hover:text-red-bright"
+                    aria-label="Copy email address"
+                  >
+                    {copyState === 'copied' ? 'Copied' : copyState === 'failed' ? 'Failed' : 'Copy'}
+                  </button>
+                </li>
+              </ul>
             </Reveal>
           </div>
         </div>

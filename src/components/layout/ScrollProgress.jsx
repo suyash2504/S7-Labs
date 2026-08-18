@@ -3,7 +3,7 @@ import { motion, useScroll, useSpring } from 'framer-motion'
 /** Hairline read-progress bar pinned under the navbar. */
 export function ScrollProgress() {
   const { scrollYProgress } = useScroll()
-  const scaleX = useSpring(scrollYProgress, { stiffness: 140, damping: 28, restDelta: 0.001 })
+  const scaleX = useSpring(scrollYProgress, { stiffness: 320, damping: 34, restDelta: 0.001 })
 
   return (
     <motion.div

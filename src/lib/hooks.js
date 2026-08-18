@@ -144,22 +144,47 @@ export function useActiveSection(ids) {
   return active
 }
 
-/** Copy-to-clipboard with a short "copied" flash. */
+/**
+ * Copy-to-clipboard with a short status flash.
+ *
+ * Returns 'idle' | 'copied' | 'failed'. The Clipboard API refuses outside a
+ * secure or focused context (it throws NotAllowedError), so this falls back to
+ * the legacy execCommand path before giving up — and when it does give up it
+ * says so, rather than leaving a button that silently does nothing.
+ */
 export function useCopy(timeout = 1600) {
-  const [copied, setCopied] = useState(false)
+  const [status, setStatus] = useState('idle')
 
   const copy = useCallback(
     async (text) => {
+      const flash = (s) => {
+        setStatus(s)
+        setTimeout(() => setStatus('idle'), timeout)
+      }
+
       try {
         await navigator.clipboard.writeText(text)
-        setCopied(true)
-        setTimeout(() => setCopied(false), timeout)
+        return flash('copied')
       } catch {
-        /* clipboard unavailable — fail silently, the value is visible anyway */
+        /* fall through to the legacy path */
+      }
+
+      try {
+        const ta = document.createElement('textarea')
+        ta.value = text
+        ta.setAttribute('readonly', '')
+        ta.style.cssText = 'position:fixed;top:0;left:0;opacity:0;pointer-events:none'
+        document.body.appendChild(ta)
+        ta.select()
+        const ok = document.execCommand('copy')
+        document.body.removeChild(ta)
+        flash(ok ? 'copied' : 'failed')
+      } catch {
+        flash('failed')
       }
     },
     [timeout],
   )
 
-  return [copied, copy]
+  return [status, copy]
 }
