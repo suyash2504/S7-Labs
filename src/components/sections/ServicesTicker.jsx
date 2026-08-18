@@ -4,12 +4,12 @@ import { tickerItems } from '@/data/site'
 /** Slow full-bleed capability strip directly beneath the hero. */
 export function ServicesTicker() {
   return (
-    <div className="relative border-y border-line bg-carbon py-6 sm:py-8">
+    <div className="relative border-y border-line bg-carbon py-3 sm:py-4">
       <Marquee
         items={tickerItems}
-        duration={52}
-        itemClassName="font-display text-[clamp(1.25rem,3.4vw,2.25rem)] font-medium uppercase tracking-[-0.02em] text-ash transition-colors duration-500 hover:text-chalk"
-        separator={<span className="block size-1.5 rotate-45 bg-red" />}
+        duration={26}
+        itemClassName="font-display text-[clamp(0.875rem,1.9vw,1.25rem)] font-medium uppercase tracking-[-0.02em] text-ash transition-colors duration-500 hover:text-chalk"
+        separator={<span className="block size-1 rotate-45 bg-red" />}
       />
 
       {/* Fade the strip into the page at both ends. */}

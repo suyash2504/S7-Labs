@@ -10,7 +10,7 @@ export function Marquee({ items, duration = 46, className, itemClassName, separa
       {items.map((item, i) => (
         <span key={i} className="flex shrink-0 items-center">
           <span className={itemClassName}>{item}</span>
-          <span className="mx-6 flex items-center sm:mx-10 lg:mx-14" aria-hidden="true">
+          <span className="mx-5 flex items-center sm:mx-8 lg:mx-10" aria-hidden="true">
             {separator}
           </span>
         </span>
