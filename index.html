@@ -93,6 +93,36 @@
   </head>
   <body>
     <div id="root"></div>
+
+    <!--
+      Netlify Forms registration.
+
+      Netlify's build bots read the deployed HTML to learn which forms exist;
+      they never see the React tree, which is assembled in the browser long
+      after the deploy. So the real form declares itself here, statically, and
+      the interactive one in EnquiryForm.jsx posts to this name.
+
+      Every field the client sends must be listed, or Netlify discards the ones
+      it was not told about. Keep this in sync with EMPTY in EnquiryForm.jsx.
+
+      Sits outside #root so React never touches it, and `hidden` keeps it out
+      of the page, the tab order and the accessibility tree.
+    -->
+    <form name="enquiry" data-netlify="true" netlify-honeypot="company_website" hidden>
+      <input type="hidden" name="form-name" value="enquiry" />
+      <input type="text" name="name" />
+      <input type="text" name="business" />
+      <input type="email" name="email" />
+      <input type="tel" name="phone" />
+      <input type="text" name="service" />
+      <input type="text" name="budget" />
+      <textarea name="details"></textarea>
+      <input type="text" name="subject" />
+      <input type="text" name="submittedAt" />
+      <input type="text" name="source" />
+      <input type="text" name="company_website" />
+    </form>
+
     <script type="module" src="/src/main.jsx"></script>
   </body>
 </html>

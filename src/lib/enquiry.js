@@ -5,7 +5,18 @@
  * The single seam between the contact form and whatever delivers it. No
  * component knows which provider is in use.
  *
- * Setup — copy `.env.example` to `.env` and fill in:
+ * Delivery is decided in this order:
+ *
+ *   1. VITE_FORM_ENDPOINT set   -> JSON POST to that endpoint.
+ *   2. Production build         -> Netlify Forms.
+ *   3. Anything else (dev)      -> captured, not delivered, and said so.
+ *
+ * Netlify Forms is the default because the site is hosted there and it needs
+ * no keys and no third party: the form is declared statically in index.html,
+ * and this posts to it. Submissions land in the Netlify dashboard, with email
+ * notifications configured there.
+ *
+ * To use a different provider instead, copy `.env.example` to `.env` and set:
  *
  *   Formspree   VITE_FORM_ENDPOINT=https://formspree.io/f/xxxxxxxx
  *   Basin       VITE_FORM_ENDPOINT=https://usebasin.com/f/xxxxxxxx
@@ -15,17 +26,43 @@
  *
  * All of the above accept a JSON POST, so no provider-specific code is needed
  * beyond the optional access key.
- *
- * With no endpoint configured the submission resolves as `delivered: false`,
- * and the UI says so plainly rather than pretending an email was sent.
  * ---------------------------------------------------------------------------
  */
 
 const ENDPOINT = import.meta.env.VITE_FORM_ENDPOINT
 const ACCESS_KEY = import.meta.env.VITE_FORM_ACCESS_KEY
 
+/** Must match the `name` on the static form in index.html. */
+const NETLIFY_FORM = 'enquiry'
+
 /** Field name for the honeypot. Bots fill it; humans never see it. */
 export const HONEYPOT = 'company_website'
+
+/**
+ * Netlify accepts AJAX submissions as urlencoded form data, not JSON — the
+ * same encoding a plain <form> POST would use. Posting to "/" is the
+ * documented target; the form is identified by the form-name field.
+ */
+async function submitToNetlify(body) {
+  const params = new URLSearchParams({ 'form-name': NETLIFY_FORM })
+  for (const [key, value] of Object.entries(body)) {
+    if (value != null) params.append(key, String(value))
+  }
+
+  let res
+  try {
+    res = await fetch('/', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+      body: params.toString(),
+    })
+  } catch {
+    throw new Error("We couldn't reach the server")
+  }
+
+  if (!res.ok) throw new Error(`Submission failed (${res.status})`)
+  return { ok: true, delivered: true }
+}
 
 export async function submitEnquiry(payload) {
   // Silently succeed for bots — never tell them why they failed.
@@ -43,9 +80,14 @@ export async function submitEnquiry(payload) {
   }
 
   if (!ENDPOINT) {
-    console.info('[S7] Enquiry captured (no VITE_FORM_ENDPOINT configured):', body)
-    await new Promise((r) => setTimeout(r, 700))
-    return { ok: true, delivered: false }
+    // The dev server answers any POST with index.html and a 200, so going
+    // through with it here would report a delivery that never happened.
+    if (import.meta.env.DEV) {
+      console.info('[S7] Enquiry captured (dev build — nothing is delivered):', body)
+      await new Promise((r) => setTimeout(r, 700))
+      return { ok: true, delivered: false }
+    }
+    return submitToNetlify(body)
   }
 
   let res

@@ -66,7 +66,8 @@ export function EnquiryForm() {
       setMessage(
         res.delivered
           ? "Thanks — your enquiry is with us. We'll reply within one working day."
-          : "Thanks — your enquiry has been captured. Connect a form endpoint to start delivering these to your inbox.",
+          : // Only reachable on a dev build, where nothing is actually sent.
+            'Thanks — your enquiry was captured. This is a development build, so it has not been delivered anywhere.',
       )
       setValues(EMPTY)
     } catch (err) {
