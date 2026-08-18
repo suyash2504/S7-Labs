@@ -4,10 +4,13 @@ import { tickerItems } from '@/data/site'
 /** Slow full-bleed capability strip directly beneath the hero. */
 export function ServicesTicker() {
   return (
-    <div className="relative border-y border-line bg-carbon py-3 sm:py-4">
+    /* Fixed height below sm so the hero can subtract exactly this much from
+       100svh (see --ticker-h). From sm it goes back to padding-driven. */
+    <div className="relative flex h-[var(--ticker-h)] items-center border-y border-line bg-carbon sm:h-auto sm:py-4">
       <Marquee
         items={tickerItems}
         duration={26}
+        className="w-full"
         itemClassName="font-display text-[clamp(0.875rem,1.9vw,1.25rem)] font-medium uppercase tracking-[-0.02em] text-ash transition-colors duration-500 hover:text-chalk"
         separator={<span className="block size-1 rotate-45 bg-red" />}
       />

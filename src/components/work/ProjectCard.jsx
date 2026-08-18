@@ -186,26 +186,31 @@ export function ProjectCard({ project, flip = false, delay = 0, priority = false
               </ul>
             )}
 
-            <span
-              className={cn(
-                'mt-9 inline-flex items-center gap-3 text-sm font-medium',
-                upcoming ? 'text-smoke' : 'text-chalk',
-              )}
-            >
-              {upcoming ? (
-                <>
-                  <Lock aria-hidden="true" strokeWidth={1.5} className="size-3.5" />
-                  Coming soon
-                </>
-              ) : (
-                <>
-                  View case study
-                  <span className="flex size-9 items-center justify-center rounded-full border border-line transition-colors duration-400 group-hover:border-red group-hover:bg-red group-hover:text-white">
-                    <ArrowUpRight aria-hidden="true" strokeWidth={1.5} className="size-4" />
-                  </span>
-                </>
-              )}
-            </span>
+            {/* This looked like a button but was inert markup — the only click
+                targets on the card were the title and the artwork. It is a
+                real link now, hidden from assistive tech for the same reason
+                <MediaLink> is: the title link above already carries the card's
+                one accessible name, and a second "View case study" per card
+                would just be noise in a link list. */}
+            {upcoming ? (
+              <span className="mt-9 inline-flex items-center gap-3 text-sm font-medium text-smoke">
+                <Lock aria-hidden="true" strokeWidth={1.5} className="size-3.5" />
+                Coming soon
+              </span>
+            ) : (
+              <Link
+                to={`/work/${project.slug}`}
+                data-cursor="view"
+                aria-hidden="true"
+                tabIndex={-1}
+                className="mt-9 inline-flex items-center gap-3 text-sm font-medium text-chalk"
+              >
+                View case study
+                <span className="flex size-9 items-center justify-center rounded-full border border-line transition-colors duration-400 group-hover:border-red group-hover:bg-red group-hover:text-white">
+                  <ArrowUpRight aria-hidden="true" strokeWidth={1.5} className="size-4" />
+                </span>
+              </Link>
+            )}
           </div>
         </Reveal>
       </div>

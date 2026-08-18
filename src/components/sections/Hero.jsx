@@ -51,7 +51,12 @@ export function Hero() {
 
   return (
     <section
-      className="relative flex min-h-[100svh] items-center overflow-hidden pt-28 pb-20 sm:pt-32 lg:pt-24 lg:pb-24"
+      /* On phones the hero stops one ticker-height short of the viewport, so
+         the capability strip is already on screen at rest. There is room:
+         the hero's own content is ~450px tall in a ~810px viewport. From sm
+         the hero takes the full screen again and the ticker sits below the
+         fold, where the scroll cue invites you to it. */
+      className="relative flex min-h-[calc(100svh-var(--ticker-h))] items-center overflow-hidden pt-28 pb-20 sm:min-h-[100svh] sm:pt-32 lg:pt-24 lg:pb-24"
       aria-label="S7 Labs — Think. Build. Evolve."
     >
       {/* --- Visual field ------------------------------------------------
