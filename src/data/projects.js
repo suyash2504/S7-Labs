@@ -155,21 +155,81 @@ export const projects = [
     },
   },
 
+  {
+    slug: 'real-estate',
+    number: '03',
+    title: 'Amara Villas',
+    subtitle: 'Thirty-two homes, two garden streets',
+    category: 'Property / Web Design / Development',
+    disciplines: ['Web Design', 'Development', 'Art Direction', 'Interaction Design'],
+    year: '2026',
+    status: 'live',
+    kind: 'concept',
+    summary:
+      'A concept for a standalone-villa community in Raipur, built to test whether a property site can carry real inventory — pick a plot, pick a villa, see the elevation, the rooms, the plan and the price — instead of asking for a phone number and mailing a brochure.',
+    cover: '/work/real-estate/cover.jpg',
+    visual: { key: 'placeholder', accent: '#B07A50' },
+    caseStudy: {
+      ready: true,
+      intro:
+        'Amara is a concept brand for thirty-two standalone villas in Telibandha, Raipur — not a tower divided into units, but thirty-two independent homes on their own plots, facing each other across two garden streets. Luxury property sites in the category tend to lead with a rendered sunset and end with a lead-capture box, so the question this build set out to answer was what the site would look like if it did the opposite: photograph every villa honestly, draw the architecture that explains it, publish the availability plot by plot, and let a visitor choose a specific home before anyone speaks to them.',
+      sections: [
+        {
+          label: 'The Approach',
+          body: 'The whole site is set in one warm family — lime-washed ivory, terracotta and espresso — with a high-contrast serif carrying the display type and a monospace holding every number. The one exception is the hero: a dusk photograph of a villa arrival, lit from within, which called for a dark espresso scrim rather than the site\'s usual ivory one. Every other section resolves back to ivory the instant the page moves past it.',
+        },
+        {
+          label: 'The Plot Explorer',
+          body: 'The centrepiece is the one screen that behaves like a tool rather than a brochure. The community is drawn as two garden streets of sixteen numbered plots, and every plot is a button: select one and its villa\'s front elevation, floor plan, aspect and price load beside it, and that plot is carried down into the viewing form so the enquiry arrives naming a specific home. Allotted plots stay visible and stay disabled, because hiding them would make the street look emptier than it is.',
+        },
+        {
+          label: 'The Build',
+          body: 'React and Vite with Tailwind, and a deliberate split between what is photographed and what is drawn. Villa exteriors and every interior room are photographs, because a plan cannot tell you what a room feels like. The masterplan, the four floor plans and the jaali module stay SVG, because a drawing states an intention where a photograph only states a finish. Lenis smooths the scroll, reveals run off IntersectionObserver, and the whole motion layer stands down under prefers-reduced-motion.',
+        },
+        {
+          label: 'The Detail',
+          body: 'Every villa card pairs its front elevation with its own floor plan beneath it, then three interior photographs — living, bedroom, bath or kitchen — so the feel of a home and its dimensions are read together rather than on separate pages. Each card opens into a full detail view: the elevation at size, every interior photograph, and the complete room schedule down to the last dimension, rather than making a visitor guess from a summary. The four plans are drawn to a single shared scale, because the only honest way to compare two homes is side by side. Two plots at the head of each street face the shared green on three sides and carry a premium for it, computed rather than written in twice. Every number on the page — availability counts, prices, plot areas in square feet — is derived from one inventory file, so a villa can\'t be sold on one screen and available on another.',
+        },
+      ],
+      gallery: [
+        {
+          src: '/work/real-estate/shot-02.jpg',
+          alt: 'Amara Villas — the four villa types, each showing its front elevation and floor plan above three interior photographs.',
+          caption:
+            'Each type pairs a front elevation with its own plan, drawn to one shared scale, and three interior photographs — reporting its live availability from the same inventory the explorer reads.',
+        },
+        {
+          src: '/work/real-estate/shot-03.jpg',
+          alt: 'Amara Villas — the plot explorer, with two garden streets of numbered plots and a detail panel showing the selected villa.',
+          caption:
+            'Select a plot on either street and its villa\'s elevation, plan, aspect and price load beside it. The choice follows you into the viewing form.',
+        },
+      ],
+      deliverables: [
+        'Art Direction',
+        'Photo Editing',
+        'UI Design',
+        'Interaction Design',
+        'Architectural Drawing',
+        'Front-End Development',
+      ],
+      stack: ['React', 'Vite', 'Tailwind CSS', 'SVG', 'Lenis', 'WebP'],
+      facts: [
+        { label: 'Type', value: 'Self-initiated concept' },
+        { label: 'Villas', value: '32, live inventory' },
+        { label: 'Location', value: 'Telibandha, Raipur' },
+        { label: 'Year', value: '2026' },
+      ],
+      link: 'https://suyash2504.github.io/Amara-Villas/',
+    },
+  },
+
   /* ----- Next up. Flip `status` to 'live' and add a caseStudy to publish. --- */
   {
     slug: 'luxury-restaurant',
-    number: '03',
+    number: '04',
     title: 'Luxury Restaurant',
     category: 'Hospitality / Web Design',
-    year: '2026',
-    status: 'upcoming',
-    visual: { key: 'placeholder', accent: '#8B0000' },
-  },
-  {
-    slug: 'real-estate',
-    number: '04',
-    title: 'Real Estate',
-    category: 'Property / Web Design / Development',
     year: '2026',
     status: 'upcoming',
     visual: { key: 'placeholder', accent: '#8B0000' },

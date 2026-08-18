@@ -35,6 +35,31 @@
         "4173"
       ],
       "port": 4173
+    },
+    {
+      "name": "amara",
+      "runtimeExecutable": "node",
+      "runtimeArgs": [
+        "../real-estate/node_modules/vite/bin/vite.js",
+        "../real-estate",
+        "--port",
+        "5174",
+        "--strictPort"
+      ],
+      "port": 5174
+    },
+    {
+      "name": "amara-preview",
+      "runtimeExecutable": "node",
+      "runtimeArgs": [
+        "../real-estate/node_modules/vite/bin/vite.js",
+        "preview",
+        "../real-estate",
+        "--port",
+        "4174",
+        "--strictPort"
+      ],
+      "port": 4174
     }
   ]
 }

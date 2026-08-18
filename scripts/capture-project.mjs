@@ -5,29 +5,35 @@
  * Grabs real screenshots of a live project and writes them into
  * `public/work/<slug>/`, ready to reference as `cover:` in data/projects.js.
  *
- *   node scripts/capture-project.mjs <url> <slug> [scrollFractions...]
+ *   node scripts/capture-project.mjs <url> <slug> [scrollFractions...] [--reduced]
  *
  * Examples:
  *   node scripts/capture-project.mjs http://localhost:4180 apex-gym
  *   node scripts/capture-project.mjs https://client.com joystick-junction 0 .35 .7
+ *   node scripts/capture-project.mjs http://localhost:4174 real-estate 0 .3 --reduced
  *
  * Notes:
  *   · Runs headless Chromium with SwiftShader so WebGL/Three.js scenes render.
  *   · Waits for fonts and for the scene to settle before each frame.
  *   · Emits cover.jpg (first frame) plus shot-02.jpg, shot-03.jpg, …
+ *   · `--reduced` asks the page for reduced motion. Needed for sites running a
+ *     smooth-scroll library, which otherwise reverts `window.scrollTo` and
+ *     leaves every frame captured at the top of the page.
  * ---------------------------------------------------------------------------
  */
 import { chromium } from 'playwright'
 import fs from 'node:fs'
 import path from 'node:path'
 
-const [, , url, slug, ...fracArgs] = process.argv
+const [, , url, slug, ...rest] = process.argv
 
 if (!url || !slug) {
-  console.error('usage: node scripts/capture-project.mjs <url> <slug> [fractions...]')
+  console.error('usage: node scripts/capture-project.mjs <url> <slug> [fractions...] [--reduced]')
   process.exit(1)
 }
 
+const reduced = rest.includes('--reduced')
+const fracArgs = rest.filter((a) => !a.startsWith('--'))
 const fractions = fracArgs.length ? fracArgs.map(Number) : [0]
 const outDir = path.resolve('public/work', slug)
 fs.mkdirSync(outDir, { recursive: true })
@@ -49,7 +55,7 @@ const page = await browser.newPage({
   viewport: VIEWPORT,
   deviceScaleFactor: 1,
   colorScheme: 'dark',
-  reducedMotion: 'no-preference',
+  reducedMotion: reduced ? 'reduce' : 'no-preference',
 })
 
 console.log(`→ ${url}`)
