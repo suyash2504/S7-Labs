@@ -11,8 +11,9 @@ export const site = {
     'A digital studio creating websites, brands and digital experiences for ambitious businesses.',
   location: 'Raipur, India',
   // Swap for a branded address (hello@yourdomain.com) once the domain and
-  // mailbox exist — this one line feeds every email link on the site.
-  email: 'suyash.namdeo07@gmail.com',
+  // mailbox exist — this one line feeds every email link on the site, and the
+  // JSON-LD in index.html via the %SITE_EMAIL% placeholder.
+  email: 's7labs.official@gmail.com',
 
   /**
    * Public origin, e.g. 'https://s7labs.in' — no trailing slash.
@@ -23,7 +24,7 @@ export const site = {
    * worse than omitting them. Everything that depends on this degrades
    * quietly instead.
    */
-  url: import.meta.env.VITE_SITE_URL?.replace(/\/$/, '') || '',
+  url: import.meta.env?.VITE_SITE_URL?.replace(/\/$/, '') || '',
   // Used by every WhatsApp CTA on the site. Set `number` once, in full
   // international format without symbols, e.g. '919876543210'.
   //

@@ -4,6 +4,7 @@ import tailwindcss from '@tailwindcss/vite'
 import fs from 'node:fs'
 import path from 'node:path'
 import { routes } from './src/data/routes.js'
+import { site } from './src/data/site.js'
 
 /**
  * Absolute-URL SEO artefacts, driven by one env var.
@@ -67,9 +68,14 @@ function seo(siteUrl) {
     },
 
     transformIndexHtml(html) {
-      if (siteUrl) return html.replaceAll('%SITE_URL%', siteUrl)
+      // The JSON-LD block needs the contact address, but static HTML can't
+      // import site.js — so it carries a placeholder and gets it stamped here.
+      // Without this the schema.org email quietly rots the day site.js changes.
+      const out = html.replaceAll('%SITE_EMAIL%', site.email)
+
+      if (siteUrl) return out.replaceAll('%SITE_URL%', siteUrl)
       // Drop every line that depends on an origin we don't have.
-      return html
+      return out
         .split('\n')
         .filter((line) => !line.includes('%SITE_URL%'))
         .join('\n')
