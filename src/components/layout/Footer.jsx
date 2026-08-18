@@ -138,30 +138,38 @@ export function Footer() {
           </p>
         </div>
 
-        {/* Baseline */}
-        <div className="mt-10 flex flex-col-reverse items-start justify-between gap-5 border-t border-line py-7 sm:flex-row sm:items-center">
-          <p className="text-xs text-smoke">
-            © {site.founded} {site.name}. All rights reserved.
-          </p>
+        {/* Baseline.
+            Mobile stacks: location on its own line, then copyright bottom-left
+            with the back-to-top control pinned bottom-right. From sm it
+            collapses to a single row. */}
+        <div className="mt-10 border-t border-line py-7">
+          <span className="label block text-smoke sm:hidden">{site.location}</span>
 
-          <div className="flex items-center gap-6">
-            <span className="label text-smoke">{site.location}</span>
-            {/* The box used to be `border-line` on `bg-carbon` — 1.5:1, which
-                read as no border at all. Now a red outline with a slow halo. */}
-            <button
-              type="button"
-              onClick={toTop}
-              className="group flex cursor-pointer items-center gap-2 text-xs font-medium text-chalk"
-            >
-              Back to top
-              <span className="glow-pulse flex size-8 items-center justify-center border border-red">
-                <ArrowUp
-                  aria-hidden="true"
-                  strokeWidth={1.5}
-                  className="size-3.5 transition-transform duration-400 ease-[var(--ease-out-expo)] group-hover:-translate-y-0.5"
-                />
-              </span>
-            </button>
+          <div className="mt-4 flex items-end justify-between gap-5 sm:mt-0 sm:items-center">
+            <p className="text-xs text-smoke">
+              © {site.founded} {site.name}. All rights reserved.
+            </p>
+
+            <div className="flex items-center gap-6">
+              <span className="label hidden text-smoke sm:inline">{site.location}</span>
+              {/* The box used to be `border-line` on `bg-carbon` — 1.5:1, which
+                  read as no border at all. Now a red outline with a slow halo. */}
+              <button
+                type="button"
+                onClick={toTop}
+                className="group flex shrink-0 cursor-pointer items-center gap-2 text-xs font-medium text-chalk"
+              >
+                <span className="hidden sm:inline">Back to top</span>
+                <span className="glow-pulse flex size-10 items-center justify-center border border-red sm:size-8">
+                  <ArrowUp
+                    aria-hidden="true"
+                    strokeWidth={1.5}
+                    className="size-4 transition-transform duration-400 ease-[var(--ease-out-expo)] group-hover:-translate-y-0.5 sm:size-3.5"
+                  />
+                </span>
+                <span className="sr-only sm:hidden">Back to top</span>
+              </button>
+            </div>
           </div>
         </div>
       </div>
