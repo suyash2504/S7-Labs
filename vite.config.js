@@ -108,6 +108,11 @@ function seo(siteUrl) {
      * hashed asset tags and %SITE_URL% already resolved. Netlify serves a file
      * that exists in preference to the SPA redirect, so these take over from
      * the /* -> /index.html fallback without any config change.
+     *
+     * Written as `work.html`, not `work/index.html`: Netlify serves /work from
+     * either, but the directory form makes it 301 to /work/ first, which would
+     * put a redirect between Google and the very canonical claiming to be
+     * /work. The flat file resolves at the exact URL the canonical names.
      */
     closeBundle() {
       const dir = path.resolve(root, outDir)
@@ -118,9 +123,9 @@ function seo(siteUrl) {
 
       for (const route of routes) {
         if (route.path === '/') continue
-        const target = path.join(dir, route.path.slice(1))
-        fs.mkdirSync(target, { recursive: true })
-        fs.writeFileSync(path.join(target, 'index.html'), headFor(base, route, siteUrl))
+        const target = path.join(dir, `${route.path.slice(1)}.html`)
+        fs.mkdirSync(path.dirname(target), { recursive: true })
+        fs.writeFileSync(target, headFor(base, route, siteUrl))
       }
     },
   }
