@@ -46,6 +46,18 @@ export const whatsappUrl = () =>
     ? `https://wa.me/${site.whatsapp.number}?text=${encodeURIComponent(site.whatsapp.message)}`
     : null
 
+/**
+ * Human-readable form of the same number, for places that show it rather than
+ * only linking it. Links keep using the raw digits above.
+ * `918359808081` → `+91 83598 08081`; anything that isn't a 12-digit Indian
+ * number falls back to a plain `+<digits>` rather than being mangled.
+ */
+export const whatsappDisplay = () => {
+  if (!hasWhatsApp) return null
+  const match = site.whatsapp.number.match(/^(\d{2})(\d{5})(\d{5})$/)
+  return match ? `+${match[1]} ${match[2]} ${match[3]}` : `+${site.whatsapp.number}`
+}
+
 /** Primary navigation. `hash` entries resolve against the home route. */
 export const navLinks = [
   { label: 'Work', to: '/work' },

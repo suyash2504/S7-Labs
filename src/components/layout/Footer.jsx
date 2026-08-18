@@ -2,7 +2,19 @@ import { Link } from 'react-router-dom'
 import { ArrowUp } from 'lucide-react'
 import { LogoMark } from './Logo'
 import { Reveal } from '@/components/ui/Reveal'
-import { footerLinks, site, socials, capabilities, whatsappUrl, hasWhatsApp } from '@/data/site'
+import {
+  footerLinks,
+  site,
+  socials,
+  capabilities,
+  whatsappUrl,
+  whatsappDisplay,
+  hasWhatsApp,
+} from '@/data/site'
+
+/* Deliberately a step below the column headings (11px / 0.24em) so the two
+   don't compete. 10px smoke is 4.7:1 on carbon — passes AA for body text. */
+const microLabel = 'text-[0.625rem] font-medium tracking-[0.18em] text-smoke uppercase'
 
 export function Footer() {
   const toTop = () =>
@@ -74,29 +86,41 @@ export function Footer() {
           <div className="lg:col-span-3">
             <Reveal delay={0.12}>
               <h2 className="text-[0.6875rem] font-bold tracking-[0.24em] text-chalk uppercase">Connect</h2>
-              <ul className="mt-6 space-y-3">
-                <li>
-                  <a
-                    href={`mailto:${site.email}`}
-                    className="text-sm text-ash transition-colors hover:text-chalk"
-                  >
-                    {site.email}
-                  </a>
-                </li>
-                {hasWhatsApp && (
-                  <li>
+              {/* A description list, not a link list: two of these three rows
+                  are addresses and one is a place. Labelling each row is what
+                  separates them — without it the location reads as a link. */}
+              <dl className="mt-6 space-y-5">
+                <div>
+                  <dt className={microLabel}>Email</dt>
+                  <dd className="mt-1.5">
                     <a
-                      href={whatsappUrl()}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="text-sm text-ash transition-colors hover:text-chalk"
+                      href={`mailto:${site.email}`}
+                      className="text-sm break-words text-chalk transition-colors hover:text-red-bright"
                     >
-                      WhatsApp
+                      {site.email}
                     </a>
-                  </li>
+                  </dd>
+                </div>
+                {hasWhatsApp && (
+                  <div>
+                    <dt className={microLabel}>WhatsApp</dt>
+                    <dd className="mt-1.5">
+                      <a
+                        href={whatsappUrl()}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-sm text-chalk transition-colors hover:text-red-bright"
+                      >
+                        {whatsappDisplay()}
+                      </a>
+                    </dd>
+                  </div>
                 )}
-                <li className="text-sm text-smoke">{site.location}</li>
-              </ul>
+                <div>
+                  <dt className={microLabel}>Studio</dt>
+                  <dd className="mt-1.5 text-sm text-chalk">{site.location}</dd>
+                </div>
+              </dl>
 
               {socials.some((s) => s.href) && (
                 <ul className="mt-8 flex gap-3">
@@ -138,20 +162,17 @@ export function Footer() {
           </p>
         </div>
 
-        {/* Baseline.
-            Mobile stacks: location on its own line, then copyright bottom-left
-            with the back-to-top control pinned bottom-right. From sm it
-            collapses to a single row. */}
+        {/* Baseline. Copyright left, back-to-top right, at every width.
+            The location used to sit here too, but it now has a labelled
+            `Studio` row in Connect — repeating it 200px later just read as a
+            mistake. */}
         <div className="mt-10 border-t border-line py-7">
-          <span className="label block text-smoke sm:hidden">{site.location}</span>
-
-          <div className="mt-4 flex items-end justify-between gap-5 sm:mt-0 sm:items-center">
+          <div className="flex items-center justify-between gap-5">
             <p className="text-xs text-smoke">
               © {site.founded} {site.name}. All rights reserved.
             </p>
 
             <div className="flex items-center gap-6">
-              <span className="label hidden text-smoke sm:inline">{site.location}</span>
               {/* The box used to be `border-line` on `bg-carbon` — 1.5:1, which
                   read as no border at all. Now a red outline with a slow halo. */}
               <button
