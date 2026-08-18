@@ -7,12 +7,7 @@ import { liveProjects, upcomingProjects } from '@/data/projects'
 import { useSeo } from '@/lib/useSeo'
 
 export default function Work() {
-  useSeo({
-    title: 'Work',
-    description:
-      'Selected projects by S7 Labs — websites, digital experiences and brand identities designed and built end to end.',
-    path: '/work',
-  })
+  useSeo({ path: '/work' })
 
   return (
     <PageTransition>

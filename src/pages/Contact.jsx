@@ -8,12 +8,7 @@ import { useSeo } from '@/lib/useSeo'
 import { useCopy } from '@/lib/hooks'
 
 export default function Contact() {
-  useSeo({
-    title: 'Contact',
-    description:
-      'Start a project with S7 Labs. Tell us what you are building and we will come back with scope, timeline and a quote.',
-    path: '/contact',
-  })
+  useSeo({ path: '/contact' })
 
   return (
     <PageTransition>

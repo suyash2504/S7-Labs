@@ -12,8 +12,11 @@ export default function CaseStudy() {
   const { slug } = useParams()
   const project = getProject(slug)
 
+  // Live slugs are in the route table, so path alone resolves the title and
+  // description — and matches the HTML the build wrote for this URL exactly.
+  // An unknown slug falls through to the explicit title and then redirects.
   useSeo({
-    title: project ? project.title : 'Project not found',
+    title: project ? undefined : 'Project not found',
     description: project?.summary,
     path: `/work/${slug}`,
   })

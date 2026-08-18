@@ -1,11 +1,6 @@
 import { site } from '@/data/site'
+import { SEO_DEFAULTS, getRoute } from '@/data/routes'
 import { useEffect } from 'react'
-
-const DEFAULTS = {
-  title: 'S7 Labs — Digital Experiences That Move Businesses Forward',
-  description:
-    'S7 Labs designs and develops premium websites, digital experiences and brand identities for modern businesses.',
-}
 
 const setMeta = (selector, attr, value) => {
   const el = document.head.querySelector(selector)
@@ -15,11 +10,18 @@ const setMeta = (selector, attr, value) => {
 /**
  * Per-route document metadata. Keeps <title>, the description and the OG tags
  * in sync when the router swaps pages — no react-helmet dependency needed.
+ *
+ * Title and description normally come from the route table, so the HTML the
+ * build writes for a route and the HTML React renders for it cannot drift.
+ * Pass them explicitly only for pages that aren't in the table (an unknown
+ * case-study slug, say) — an explicit value always wins.
  */
 export function useSeo({ title, description, path } = {}) {
   useEffect(() => {
-    const fullTitle = title ? `${title} — S7 Labs` : DEFAULTS.title
-    const desc = description || DEFAULTS.description
+    const entry = path ? getRoute(path) : undefined
+
+    const fullTitle = title ? `${title} — S7 Labs` : entry?.title || SEO_DEFAULTS.title
+    const desc = description || entry?.description || SEO_DEFAULTS.description
 
     document.title = fullTitle
     setMeta('meta[name="description"]', 'content', desc)

@@ -1,8 +1,9 @@
 import { defineConfig, loadEnv } from 'vite'
 import react from '@vitejs/plugin-react'
 import tailwindcss from '@tailwindcss/vite'
+import fs from 'node:fs'
 import path from 'node:path'
-import { liveProjects } from './src/data/projects.js'
+import { routes } from './src/data/routes.js'
 
 /**
  * Absolute-URL SEO artefacts, driven by one env var.
@@ -16,16 +17,54 @@ import { liveProjects } from './src/data/projects.js'
  *   .env
  *   VITE_SITE_URL=https://s7labs.in
  */
+const escapeAttr = (s) =>
+  String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/"/g, '&quot;')
+
+/** Rewrite one attribute on the first tag matching `tagRe`, if that tag exists. */
+const setAttr = (html, tagRe, attr, value) =>
+  html.replace(tagRe, (tag) => {
+    const re = new RegExp(`${attr}="[^"]*"`)
+    return re.test(tag) ? tag.replace(re, `${attr}="${escapeAttr(value)}"`) : tag
+  })
+
+/**
+ * Take the built index.html and restamp its <head> for one route.
+ *
+ * The body stays as-is — React fills that in, and Googlebot runs JS. What it
+ * will not reliably do is re-read a canonical it already saw in the raw HTML,
+ * which is exactly why this exists.
+ */
+function headFor(baseHtml, route, siteUrl) {
+  let html = baseHtml.replace(/<title>[\s\S]*?<\/title>/, `<title>${escapeAttr(route.title)}</title>`)
+
+  const meta = (key, attr = 'property') => new RegExp(`<meta\\b[^>]*\\b${attr}="${key}"[^>]*>`)
+
+  html = setAttr(html, meta('description', 'name'), 'content', route.description)
+  html = setAttr(html, meta('og:title'), 'content', route.title)
+  html = setAttr(html, meta('og:description'), 'content', route.description)
+  html = setAttr(html, meta('twitter:title', 'name'), 'content', route.title)
+  html = setAttr(html, meta('twitter:description', 'name'), 'content', route.description)
+
+  if (siteUrl) {
+    const url = `${siteUrl}${route.path}`
+    html = setAttr(html, meta('og:url'), 'content', url)
+    html = setAttr(html, /<link\b[^>]*\brel="canonical"[^>]*>/, 'href', url)
+  }
+
+  return html
+}
+
 function seo(siteUrl) {
-  const routes = [
-    { path: '/', priority: '1.0' },
-    { path: '/work', priority: '0.9' },
-    ...liveProjects.map((p) => ({ path: `/work/${p.slug}`, priority: '0.7' })),
-    { path: '/contact', priority: '0.8' },
-  ]
+  let root = process.cwd()
+  let outDir = 'dist'
 
   return {
     name: 's7-seo',
+
+    configResolved(config) {
+      root = config.root
+      outDir = config.build.outDir
+    },
 
     transformIndexHtml(html) {
       if (siteUrl) return html.replaceAll('%SITE_URL%', siteUrl)
@@ -59,6 +98,30 @@ function seo(siteUrl) {
         fileName: 'sitemap.xml',
         source: `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${urls}\n</urlset>\n`,
       })
+    },
+
+    /**
+     * Write a real HTML file for every route, so a crawler's first request for
+     * /work gets /work's title and canonical rather than the homepage's.
+     *
+     * Runs in closeBundle, once index.html is definitely on disk with the
+     * hashed asset tags and %SITE_URL% already resolved. Netlify serves a file
+     * that exists in preference to the SPA redirect, so these take over from
+     * the /* -> /index.html fallback without any config change.
+     */
+    closeBundle() {
+      const dir = path.resolve(root, outDir)
+      const indexPath = path.join(dir, 'index.html')
+      if (!fs.existsSync(indexPath)) return
+
+      const base = fs.readFileSync(indexPath, 'utf8')
+
+      for (const route of routes) {
+        if (route.path === '/') continue
+        const target = path.join(dir, route.path.slice(1))
+        fs.mkdirSync(target, { recursive: true })
+        fs.writeFileSync(path.join(target, 'index.html'), headFor(base, route, siteUrl))
+      }
     },
   }
 }
