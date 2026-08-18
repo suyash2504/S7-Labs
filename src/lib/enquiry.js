@@ -5,64 +5,35 @@
  * The single seam between the contact form and whatever delivers it. No
  * component knows which provider is in use.
  *
- * Delivery is decided in this order:
+ * Delivery goes to Web3Forms, which emails each enquiry straight to the studio
+ * inbox. Netlify Forms was the obvious choice given the host, but email
+ * notifications are a paid feature there — submissions would have sat in a
+ * dashboard nobody opens, which is not delivery.
  *
- *   1. VITE_FORM_ENDPOINT set   -> JSON POST to that endpoint.
- *   2. Production build         -> Netlify Forms.
- *   3. Anything else (dev)      -> captured, not delivered, and said so.
+ * On the two constants below being in the file rather than in .env: Vite
+ * inlines every VITE_* value at build time, so both end up readable in the
+ * shipped bundle either way. A Web3Forms access key is a routing id, not a
+ * credential — it says where a submission goes, and grants nothing. Hiding it
+ * behind an env var would only mean the build breaks the day someone forgets
+ * to set it. Anything that is genuinely secret must still go through .env and
+ * never through here.
  *
- * Netlify Forms is the default because the site is hosted there and it needs
- * no keys and no third party: the form is declared statically in index.html,
- * and this posts to it. Submissions land in the Netlify dashboard, with email
- * notifications configured there.
- *
- * To use a different provider instead, copy `.env.example` to `.env` and set:
+ * Both are overridable, for switching provider without touching code:
  *
  *   Formspree   VITE_FORM_ENDPOINT=https://formspree.io/f/xxxxxxxx
  *   Basin       VITE_FORM_ENDPOINT=https://usebasin.com/f/xxxxxxxx
- *   Web3Forms   VITE_FORM_ENDPOINT=https://api.web3forms.com/submit
- *               VITE_FORM_ACCESS_KEY=your-access-key
  *   Your own    VITE_FORM_ENDPOINT=https://api.yoursite.com/enquiries
  *
- * All of the above accept a JSON POST, so no provider-specific code is needed
+ * All of them accept a JSON POST, so no provider-specific code is needed
  * beyond the optional access key.
  * ---------------------------------------------------------------------------
  */
 
-const ENDPOINT = import.meta.env.VITE_FORM_ENDPOINT
-const ACCESS_KEY = import.meta.env.VITE_FORM_ACCESS_KEY
-
-/** Must match the `name` on the static form in index.html. */
-const NETLIFY_FORM = 'enquiry'
+const ENDPOINT = import.meta.env.VITE_FORM_ENDPOINT || 'https://api.web3forms.com/submit'
+const ACCESS_KEY = import.meta.env.VITE_FORM_ACCESS_KEY || '782db47b-2f9b-4acb-acfa-d9fbd9d4d2f2'
 
 /** Field name for the honeypot. Bots fill it; humans never see it. */
 export const HONEYPOT = 'company_website'
-
-/**
- * Netlify accepts AJAX submissions as urlencoded form data, not JSON — the
- * same encoding a plain <form> POST would use. Posting to "/" is the
- * documented target; the form is identified by the form-name field.
- */
-async function submitToNetlify(body) {
-  const params = new URLSearchParams({ 'form-name': NETLIFY_FORM })
-  for (const [key, value] of Object.entries(body)) {
-    if (value != null) params.append(key, String(value))
-  }
-
-  let res
-  try {
-    res = await fetch('/', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-      body: params.toString(),
-    })
-  } catch {
-    throw new Error("We couldn't reach the server")
-  }
-
-  if (!res.ok) throw new Error(`Submission failed (${res.status})`)
-  return { ok: true, delivered: true }
-}
 
 export async function submitEnquiry(payload) {
   // Silently succeed for bots — never tell them why they failed.
@@ -79,15 +50,14 @@ export async function submitEnquiry(payload) {
     source: typeof window !== 'undefined' ? window.location.href : 'unknown',
   }
 
-  if (!ENDPOINT) {
-    // The dev server answers any POST with index.html and a 200, so going
-    // through with it here would report a delivery that never happened.
-    if (import.meta.env.DEV) {
-      console.info('[S7] Enquiry captured (dev build — nothing is delivered):', body)
-      await new Promise((r) => setTimeout(r, 700))
-      return { ok: true, delivered: false }
-    }
-    return submitToNetlify(body)
+  // Never deliver from a dev build. Working on the form should not put test
+  // enquiries in a real inbox, and there is no way to tell them apart later.
+  // `vite preview` runs a production build, so that is the way to test the
+  // real path.
+  if (import.meta.env.DEV) {
+    console.info('[S7] Enquiry captured (dev build — nothing is delivered):', body)
+    await new Promise((r) => setTimeout(r, 700))
+    return { ok: true, delivered: false }
   }
 
   let res
