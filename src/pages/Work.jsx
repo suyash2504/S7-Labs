@@ -1,11 +1,21 @@
 import { PageTransition } from '@/components/layout/PageTransition'
 import { PageHeader } from '@/components/layout/PageHeader'
-import { ProjectCard } from '@/components/work/ProjectCard'
+import { ProjectIndex } from '@/components/work/ProjectIndex'
 import { FinalCTA } from '@/components/sections/FinalCTA'
-import { Reveal, LineRule } from '@/components/ui/Reveal'
-import { liveProjects, upcomingProjects } from '@/data/projects'
+import { projects, liveProjects, upcomingProjects } from '@/data/projects'
 import { useSeo } from '@/lib/useSeo'
 
+/**
+ * The archive. One row per project rather than one screen per project — see
+ * ProjectIndex for why. Live and upcoming share the list instead of sitting in
+ * two separate stacks: the pipeline reads as part of the body of work when it
+ * is interleaved by number, and as an apology when it is quarantined below a
+ * rule.
+ *
+ * The lede carries no "hover to preview" hint on purpose — the preview is
+ * desktop-only, and a touch visitor reading an instruction they cannot follow
+ * is worse off than one who never knew it existed.
+ */
 export default function Work() {
   useSeo({ path: '/work' })
 
@@ -23,27 +33,13 @@ export default function Work() {
       />
 
       <section className="pb-28 sm:pb-36">
-        <div className="shell flex flex-col gap-24 sm:gap-32 lg:gap-40">
-          {liveProjects.map((project, i) => (
-            <ProjectCard key={project.slug} project={project} flip={i % 2 === 1} priority={i === 0} />
-          ))}
-        </div>
+        <div className="shell">
+          <ProjectIndex projects={projects} />
 
-        <div className="shell mt-28 sm:mt-40">
-          <LineRule />
-          <Reveal className="mt-8">
-            <h2 className="label text-ash">Next up</h2>
-            <p className="mt-4 max-w-lg text-base text-smoke">
-              Projects currently in design or development. Case studies get published as they
-              launch.
-            </p>
-          </Reveal>
-
-          <div className="mt-16 flex flex-col gap-20 sm:mt-20 sm:gap-24">
-            {upcomingProjects.map((project, i) => (
-              <ProjectCard key={project.slug} project={project} flip={i % 2 === 1} />
-            ))}
-          </div>
+          <p className="mt-10 max-w-lg text-sm text-smoke">
+            Dimmed rows are in design or development. Case studies get published as they
+            launch.
+          </p>
         </div>
       </section>
 

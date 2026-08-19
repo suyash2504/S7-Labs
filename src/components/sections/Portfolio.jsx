@@ -4,7 +4,7 @@ import { Section, SectionHeading } from '@/components/ui/SectionHeading'
 import { Reveal, LineRule } from '@/components/ui/Reveal'
 import { Button } from '@/components/ui/Button'
 import { ProjectCard } from '@/components/work/ProjectCard'
-import { liveProjects, upcomingProjects } from '@/data/projects'
+import { featuredProjects, upcomingProjects } from '@/data/projects'
 
 /** SELECTED WORK — the reel on the home page. */
 export function Portfolio() {
@@ -24,8 +24,15 @@ export function Portfolio() {
           </Reveal>
         </SectionHeading>
 
+        {/*
+          A sample, not the archive. Each card is roughly a screen tall, so
+          rendering every live project made the home page grow by a screen with
+          each one shipped. Which three appear is set by `featured: true` in
+          data/projects.js — an explicit choice rather than whatever happens to
+          sit at the top of the file.
+        */}
         <div className="mt-20 flex flex-col gap-24 sm:mt-28 sm:gap-32 lg:gap-40">
-          {liveProjects.map((project, i) => (
+          {featuredProjects.map((project, i) => (
             <ProjectCard key={project.slug} project={project} flip={i % 2 === 1} priority={i === 0} />
           ))}
         </div>

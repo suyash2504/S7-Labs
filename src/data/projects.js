@@ -23,6 +23,7 @@ export const projects = [
   {
     slug: 'apex-gym',
     number: '01',
+    featured: true,
     title: 'Apex Gym',
     subtitle: 'Apex Performance Lab',
     category: 'Fitness / Web Design / Development',
@@ -158,6 +159,7 @@ export const projects = [
   {
     slug: 'real-estate',
     number: '03',
+    featured: true,
     title: 'Amara Villas',
     subtitle: 'Thirty-two homes, two garden streets',
     category: 'Property / Web Design / Development',
@@ -227,6 +229,7 @@ export const projects = [
   {
     slug: 'dregeup',
     number: '04',
+    featured: true,
     title: 'Dregeup',
     subtitle: 'The site that says what it does not know',
     category: 'Education / Web Design / Development',
@@ -325,6 +328,15 @@ export const projects = [
     visual: { key: 'placeholder', accent: '#8B0000' },
   },
 ]
+
+/**
+ * The three that lead the home-page reel. Set `featured: true` on a project
+ * to put it here; the fallback keeps the home page working if nobody has.
+ */
+export const featuredProjects = (() => {
+  const picked = projects.filter((p) => p.status === 'live' && p.featured)
+  return picked.length ? picked : projects.filter((p) => p.status === 'live').slice(0, 3)
+})()
 
 export const liveProjects = projects.filter((p) => p.status === 'live')
 export const upcomingProjects = projects.filter((p) => p.status === 'upcoming')
