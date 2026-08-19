@@ -13,8 +13,9 @@ export default function Contact() {
   return (
     <PageTransition>
       <PageHeader
-        index="01"
         eyebrow="Contact"
+        backTo="/"
+        backLabel="Home"
         title={["Let's talk."]}
         lede="Tell us what you're working on. Scope, timeline and a real quote come back from there."
       />

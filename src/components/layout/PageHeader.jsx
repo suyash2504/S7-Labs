@@ -1,3 +1,5 @@
+import { Link } from 'react-router-dom'
+import { ArrowLeft } from 'lucide-react'
 import { Reveal, RevealLines } from '@/components/ui/Reveal'
 import { SectionMark } from '@/components/ui/Eyebrow'
 import { cn } from '@/lib/cn'
@@ -5,8 +7,28 @@ import { cn } from '@/lib/cn'
 /**
  * Shared masthead for inner pages. Keeps the top of /work, /work/:slug and
  * /contact rhythmically identical to the home page sections.
+ *
+ * `index` is the oversized outlined counter. It sequences sections on the home
+ * page, where 01/02/03 mean something. On a standalone page there is nothing
+ * to sequence, so leave it off — on /work a header reading "01 SELECTED WORK"
+ * sat directly above a list whose first row is also "01", and the two numbers
+ * read as if they were related.
+ *
+ * `backTo` renders the same return link the case-study pages use, so every
+ * page one level down has a visible way back rather than relying on the
+ * browser control.
  */
-export function PageHeader({ eyebrow, index, title, lede, meta, className, children }) {
+export function PageHeader({
+  eyebrow,
+  index,
+  title,
+  lede,
+  meta,
+  backTo,
+  backLabel = 'Back',
+  className,
+  children,
+}) {
   return (
     <header
       className={cn(
@@ -32,6 +54,22 @@ export function PageHeader({ eyebrow, index, title, lede, meta, className, child
       />
 
       <div className="shell relative">
+        {backTo && (
+          <Reveal className="mb-9 sm:mb-11">
+            <Link
+              to={backTo}
+              className="group inline-flex items-center gap-2.5 text-sm text-ash transition-colors hover:text-chalk"
+            >
+              <ArrowLeft
+                aria-hidden="true"
+                strokeWidth={1.5}
+                className="size-4 transition-transform duration-400 ease-[var(--ease-out-expo)] group-hover:-translate-x-1"
+              />
+              {backLabel}
+            </Link>
+          </Reveal>
+        )}
+
         <Reveal>
           <SectionMark index={index}>{eyebrow}</SectionMark>
         </Reveal>
