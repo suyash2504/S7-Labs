@@ -224,10 +224,82 @@ export const projects = [
     },
   },
 
+  {
+    slug: 'dregeup',
+    number: '04',
+    title: 'Dregeup',
+    subtitle: 'The site that says what it does not know',
+    category: 'Education / Web Design / Development',
+    disciplines: ['Web Design', 'Development', 'Content Strategy', 'Art Direction'],
+    year: '2026',
+    status: 'live',
+    kind: 'concept',
+    summary:
+      'An unsolicited redesign of a real Pune admission consultancy, built around an awkward decision: publish the gaps. Every exam date carries the source it was read from, and every figure we could not verify renders as a visible blank rather than a confident number.',
+    cover: '/work/dregeup/cover.jpg',
+    visual: { key: 'placeholder', accent: '#F4B942' },
+    caseStudy: {
+      ready: true,
+      intro:
+        'Dregeup is a real education consultancy in Wakad, Pune — it does not teach, it places students into other institutions. This redesign was self-initiated and never commissioned. It began with a correction: the brief described a college, with programmes, faculty, departments, hostels and placement percentages. Dregeup has none of those. Building that site would have meant inventing a campus for a company that does not have one, so the structure was rebuilt around what the business actually does, and the more interesting problem surfaced underneath — an admissions site is only worth anything if a seventeen-year-old can trust the dates on it.',
+      sections: [
+        {
+          label: 'The Premise',
+          body: 'Education aggregators compete on completeness. Every college page carries a fee, a cutoff, a placement percentage and an average package, and a great many of those numbers are stale, scraped or guessed — which a student only discovers after building a shortlist around them. This build takes the opposite position: publish less, and label everything. A missing fee marked as missing is more useful than a wrong one stated plainly, because the first sends you to ask and the second sends you to the wrong college.',
+        },
+        {
+          label: 'The Verification Contract',
+          body: 'Every date in the exam calendar carries a flag recording whether it was read off the conducting body\'s own website and on what day. Confirmed dates render normally; announced-but-unverified ones sit behind a visible badge, and exams whose official sites could not be read publish nothing at all rather than something plausible. This is not decoration — it caught a live error during the build. Aggregators had SNAP 2026 sitting on 5, 13 and 19 December; the official site said 13, 19 and 26. Three of four dates wrong, on a page a student would have planned a month around.',
+        },
+        {
+          label: 'The Visible Gaps',
+          body: 'Sixteen places across the site render a dashed marker instead of content — college fees, cutoffs, placement figures, accreditation, office hours, who runs the company and how it is paid. Each one names what is missing and routes to a counsellor who can answer it. Treating an empty field as a design element rather than a failure state turned out to be the thing that makes the site feel credible: it is obviously not pretending. The company\'s own published figures are carried across untouched and labelled as unaudited, because they are its claims to make, not ours.',
+        },
+        {
+          label: 'The Build',
+          body: 'React and Vite with Tailwind, and no animation library at all — every transition is a CSS transform driven by one IntersectionObserver per element, and the whole motion layer stands down under prefers-reduced-motion. The news feed is generated from the verified date table rather than written by hand, so it re-sorts itself as deadlines pass and cannot go stale independently of the data. Hero search sets the same URL parameter the college explorer reads, so filtered views stay linkable and there is one search implementation instead of two. Routes are code-split; only the home page ships in the initial bundle.',
+        },
+        {
+          label: 'The Look',
+          body: 'Off-white ground with a barely-there grid, photographs taped into white frames at a slight angle, hand-drawn underlines that draw themselves in as a heading arrives, and doodles used sparingly enough to stay accents. The yellow is a surface colour — as text it fails contrast badly, so a deeper member of the same family carries every label and inline link and clears 5:1 on all three backgrounds it sits on. Warm enough for a seventeen-year-old, sober enough for the parent reading over their shoulder.',
+        },
+      ],
+      gallery: [
+        {
+          src: '/work/dregeup/shot-02.jpg',
+          alt: 'Dregeup — the entrance-exam calendar, each exam card showing its status, next date and a countdown, with a legend distinguishing confirmed dates from unconfirmed ones.',
+          caption:
+            'Registration status is computed from the dates rather than typed in, so a card cannot say "open" after its deadline. Exams whose official sites could not be read say so instead of guessing.',
+        },
+        {
+          src: '/work/dregeup/shot-03.jpg',
+          alt: 'Dregeup — a college page, showing city and streams alongside dashed placeholders where fees, admissions, placements and campus information would sit.',
+          caption:
+            'A college page with the holes left open. Fees, cutoffs and placement figures are the fields students most want and the ones we could not verify, so each names what is missing and points at someone who can answer.',
+        },
+      ],
+      deliverables: [
+        'Content Strategy',
+        'Information Architecture',
+        'Art Direction',
+        'UI Design',
+        'Front-End Development',
+        'SEO & Accessibility',
+      ],
+      stack: ['React', 'Vite', 'Tailwind CSS', 'React Router', 'IntersectionObserver'],
+      facts: [
+        { label: 'Type', value: 'Unsolicited redesign' },
+        { label: 'Pages', value: '13 routes' },
+        { label: 'Marked gaps', value: '16, on purpose' },
+        { label: 'Year', value: '2026' },
+      ],
+    },
+  },
+
   /* ----- Next up. Flip `status` to 'live' and add a caseStudy to publish. --- */
   {
     slug: 'luxury-restaurant',
-    number: '04',
+    number: '05',
     title: 'Luxury Restaurant',
     category: 'Hospitality / Web Design',
     year: '2026',
@@ -236,7 +308,7 @@ export const projects = [
   },
   {
     slug: 'automotive',
-    number: '05',
+    number: '06',
     title: 'Automotive',
     category: 'Automotive / Digital Experience',
     year: '2026',
@@ -245,7 +317,7 @@ export const projects = [
   },
   {
     slug: 'premium-hotel',
-    number: '06',
+    number: '07',
     title: 'Premium Hotel',
     category: 'Hospitality / Branding / Web',
     year: '2026',
