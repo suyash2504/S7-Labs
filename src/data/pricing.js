@@ -7,7 +7,7 @@ export const pricingTiers = [
   {
     id: 'starter',
     name: 'Starter',
-    price: 'From ₹9,999',
+    price: 'From ₹24,999',
     description: 'For small businesses starting their digital presence.',
     includes: [
       'Multi-section responsive website',
@@ -21,7 +21,7 @@ export const pricingTiers = [
   {
     id: 'business',
     name: 'Business',
-    price: 'From ₹19,999',
+    price: 'From ₹34,999',
     description: 'For growing businesses that need a stronger online presence.',
     includes: [
       'Everything in Starter',
@@ -36,7 +36,7 @@ export const pricingTiers = [
   {
     id: 'custom',
     name: 'Custom',
-    price: 'From ₹30,000+',
+    price: 'From ₹45,000+',
     description: 'For custom digital experiences and advanced requirements.',
     includes: [
       'Everything in Business',
@@ -49,7 +49,7 @@ export const pricingTiers = [
   },
 ]
 
-export const pricingNote = 'E-commerce projects from ₹45,000+'
+export const pricingNote = 'E-commerce projects from ₹60,000+'
 
 export const pricingDisclaimer =
   'Prices are starting prices. Final quotes depend on scope, complexity and timeline.'
