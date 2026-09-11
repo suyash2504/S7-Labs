@@ -1,5 +1,4 @@
 import { Link } from 'react-router-dom'
-import { ArrowUp } from 'lucide-react'
 import { LogoMark } from './Logo'
 import { Reveal } from '@/components/ui/Reveal'
 import {
@@ -17,12 +16,6 @@ import {
 const microLabel = 'text-[0.625rem] font-medium tracking-[0.18em] text-smoke uppercase'
 
 export function Footer() {
-  const toTop = () =>
-    window.scrollTo({
-      top: 0,
-      behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth',
-    })
-
   return (
     <footer className="relative border-t border-line bg-carbon pt-20 sm:pt-24">
       <div className="shell">
@@ -162,7 +155,9 @@ export function Footer() {
           </p>
         </div>
 
-        {/* Baseline. Copyright left, back-to-top right, at every width.
+        {/* Baseline: copyright only. Back-to-top used to sit on the right here,
+            so it appeared only once you had already reached the bottom;
+            it now floats on every page instead (layout/BackToTop.jsx).
             The location used to sit here too, but it now has a labelled
             `Studio` row in Connect — repeating it 200px later just read as a
             mistake. */}
@@ -171,26 +166,6 @@ export function Footer() {
             <p className="text-xs text-smoke">
               © {site.founded} {site.name}. All rights reserved.
             </p>
-
-            <div className="flex items-center gap-6">
-              {/* The box used to be `border-line` on `bg-carbon` — 1.5:1, which
-                  read as no border at all. Now a red outline with a slow halo. */}
-              <button
-                type="button"
-                onClick={toTop}
-                className="group flex shrink-0 cursor-pointer items-center gap-2 text-xs font-medium text-chalk"
-              >
-                <span className="hidden sm:inline">Back to top</span>
-                <span className="glow-pulse flex size-10 items-center justify-center border border-red sm:size-8">
-                  <ArrowUp
-                    aria-hidden="true"
-                    strokeWidth={1.5}
-                    className="size-4 transition-transform duration-400 ease-[var(--ease-out-expo)] group-hover:-translate-y-0.5 sm:size-3.5"
-                  />
-                </span>
-                <span className="sr-only sm:hidden">Back to top</span>
-              </button>
-            </div>
           </div>
         </div>
       </div>

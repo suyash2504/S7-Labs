@@ -7,6 +7,7 @@ import { Footer } from '@/components/layout/Footer'
 import { ScrollProgress } from '@/components/layout/ScrollProgress'
 import { ScrollManager } from '@/components/layout/ScrollManager'
 import { CustomCursor } from '@/components/layout/CustomCursor'
+import { BackToTop } from '@/components/layout/BackToTop'
 import Home from '@/pages/Home'
 
 /* Home ships with the first paint; everything else is split out. */
@@ -44,6 +45,7 @@ export default function App() {
       </main>
 
       <Footer />
+      <BackToTop />
     </MotionConfig>
   )
 }
