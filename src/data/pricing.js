@@ -56,9 +56,10 @@ export const pricingDisclaimer =
 
 /** Budget bands for the contact form — kept next to pricing so they stay aligned. */
 export const budgetOptions = [
-  'Under ₹10K',
-  '₹10K–₹25K',
-  '₹25K–₹50K',
-  '₹50K+',
+  'Under ₹25K',
+  '₹25K–₹35K',
+  '₹35K–₹45K',
+  '₹45K–₹60K',
+  '₹60K+',
   'Not sure',
 ]
