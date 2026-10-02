@@ -296,6 +296,7 @@ export const projects = [
         { label: 'Marked gaps', value: '16, on purpose' },
         { label: 'Year', value: '2026' },
       ],
+      link: 'https://suyash2504.github.io/Dregeup/',
     },
   },
 
