@@ -299,11 +299,83 @@ export const projects = [
       link: 'https://suyash2504.github.io/Dregeup/',
     },
   },
+  {
+    slug: 'kesh',
+    number: '05',
+    title: 'KESH',
+    subtitle: 'A unisex salon, booked in four steps',
+    category: 'Beauty / Web Design / Development',
+    disciplines: ['Web Design', 'Development', 'Brand Identity', 'Booking Flow'],
+    year: '2026',
+    status: 'live',
+    kind: 'concept',
+    summary:
+      'A self-initiated concept for a unisex hair and beauty studio: one menu and one price list for everyone, and a booking flow that settles the service, the stylist, the slot and the total before anyone picks up a phone.',
+    cover: '/work/kesh/cover.jpg',
+    visual: { key: 'placeholder', accent: '#C9A487' },
+    caseStudy: {
+      ready: true,
+      intro:
+        'KESH is an invented brand — the name is the Sanskrit word for hair — for a salon that cuts, colours and grooms anyone who sits in the chair. Most salon sites split the audience before the first scroll, with a pink menu for women and a black one for men, and then hand the actual booking to a phone number. This build set out to do neither: a single menu priced the same for everyone, and a site that takes the appointment itself.',
+      sections: [
+        {
+          label: 'The Approach',
+          body: 'The look started from a reference the brief supplied — a skincare landing page with a nude palette, a large serif headline and a close-up portrait — and was shown alongside three other directions before it was chosen. The signature is the edge of the hero photograph: torn and smeared like a swipe of foundation, so the image reads as pressed onto the page rather than boxed into it. A small "For him, too" card sits over it, because a beige editorial hero otherwise tells half the audience the salon is not for them.',
+        },
+        {
+          label: 'The Menu',
+          body: 'Twenty-four services across hair, colour, skin, grooming, nails and bridal, each with a duration and a price, and "from" marked honestly where length and density move the cost. An Everyone / Her / Him filter narrows the list without creating two menus — most services stay visible under every filter, because a keratin treatment is not gendered. Any service can be added to the booking from the menu itself, so browsing and booking are the same act.',
+        },
+        {
+          label: 'The Booking Flow',
+          body: 'Four steps on one screen: services, stylist, date and half-hour slot, then a name and WhatsApp number. A dark summary panel sits beside the form and updates as choices change — services with their durations, the stylist, the slot, the total time in the chair and the estimate — so the price is settled before the request is sent. Slots in the past and already-booked times are struck through rather than hidden, and Sunday closes early. Choosing "Book with Meera" on a stylist card pre-fills the form and scrolls to it.',
+        },
+        {
+          label: 'The Motion',
+          body: 'The hero waits for its photograph to decode, then swipes it in: the darker streak first, the cream wash behind it, the photo last. The headline word cycles from "you." through "bold.", "fresh." and "yours.", the photo drifts against the copy with the cursor, and scrolling slides the torn edge open. All of it runs directly on the SVG rather than through component re-renders, the parallax only switches on for real pointers, the copy never fades on phones where it sits under the photo, and reduced-motion users get the finished frame with nothing moving.',
+        },
+        {
+          label: 'The Mark',
+          body: 'The wordmark sets KESH in the same Playfair as the headings, with one change: the K is a pair of open shears — stem and blades, a pivot, and two finger rings. It was drawn on the typeface\'s own cap height and stroke weights so it sits on the baseline like a letter rather than an icon, and it holds up alone as the favicon. It was picked from ten options.',
+        },
+      ],
+      gallery: [
+        {
+          src: '/work/kesh/shot-02.jpg',
+          alt: 'KESH — the services and prices section, with category tabs on the left, an Everyone / Her / Him filter, and services listed with durations, prices and add buttons.',
+          caption:
+            'One menu for everyone. The filter narrows it without splitting it, and every row can drop straight into the booking.',
+        },
+        {
+          src: '/work/kesh/shot-03.jpg',
+          alt: 'KESH — the booking form with two services, a stylist, a date and a time selected, beside a dark summary panel showing a four-hour, ₹7,900 estimate.',
+          caption:
+            'The summary recalculates as the form is filled, so the time in the chair and the estimate are known before the request goes out.',
+        },
+      ],
+      deliverables: [
+        'Art Direction',
+        'Wordmark & Favicon',
+        'UI Design',
+        'Booking Flow Design',
+        'Motion Design',
+        'Front-End Development',
+      ],
+      stack: ['React', 'Vite', 'TypeScript', 'Tailwind CSS', 'Framer Motion', 'GitHub Pages'],
+      facts: [
+        { label: 'Type', value: 'Self-initiated concept' },
+        { label: 'Services', value: '24, one menu' },
+        { label: 'Booking', value: '4 steps, live total' },
+        { label: 'Year', value: '2026' },
+      ],
+      link: 'https://suyash2504.github.io/KESH/',
+    },
+  },
 
   /* ----- Next up. Flip `status` to 'live' and add a caseStudy to publish. --- */
   {
     slug: 'luxury-restaurant',
-    number: '05',
+    number: '06',
     title: 'Luxury Restaurant',
     category: 'Hospitality / Web Design',
     year: '2026',
@@ -312,7 +384,7 @@ export const projects = [
   },
   {
     slug: 'automotive',
-    number: '06',
+    number: '07',
     title: 'Automotive',
     category: 'Automotive / Digital Experience',
     year: '2026',
@@ -321,7 +393,7 @@ export const projects = [
   },
   {
     slug: 'premium-hotel',
-    number: '07',
+    number: '08',
     title: 'Premium Hotel',
     category: 'Hospitality / Branding / Web',
     year: '2026',
